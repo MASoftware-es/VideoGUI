@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd -P)"
+PROJECT_PARENT="$(dirname "$PROJECT_DIR")"
+PROJECT_NAME="$(basename "$PROJECT_DIR")"
+OUTPUT_DIR="$PROJECT_DIR/dist"
+OUTPUT_FILE="$OUTPUT_DIR/VideoGUI.zip"
+TEMP_ARCHIVE=""
+
+cleanup() {
+    [[ -z "$TEMP_ARCHIVE" ]] || rm -f -- "$TEMP_ARCHIVE"
+}
+trap cleanup EXIT
+
+command -v zip >/dev/null 2>&1 || {
+    printf 'Falta la dependencia "zip". Ejecuta primero: %s/setup --install\n' "$SCRIPT_DIR" >&2
+    exit 1
+}
+
+mkdir -p -- "$OUTPUT_DIR"
+TEMP_ARCHIVE="$(mktemp /tmp/videogui-package.XXXXXX.zip)"
+rm -f -- "$TEMP_ARCHIVE"
+
+printf '[VideoGUI package] Creando un paquete limpio...\n'
+(
+    cd "$PROJECT_PARENT"
+    zip -q -r -y "$TEMP_ARCHIVE" "$PROJECT_NAME" \
+        -x "$PROJECT_NAME/.git/*" \
+           "$PROJECT_NAME/.agents/*" \
+           "$PROJECT_NAME/.codex/*" \
+           "$PROJECT_NAME/.venv/*" \
+           "$PROJECT_NAME/gui/.venv/*" \
+           "$PROJECT_NAME/dist/*" \
+           "$PROJECT_NAME/.pytest_cache/*" \
+           "$PROJECT_NAME/.coverage" \
+           '*/__pycache__/*' '*.py[co]' '*.egg-info/*' \
+           '*.log' '*.tmp' '*.temp' '*~' '*.swp'
+)
+
+mv -f -- "$TEMP_ARCHIVE" "$OUTPUT_FILE"
+TEMP_ARCHIVE=""
+
+printf '[VideoGUI package] Paquete creado correctamente.\n'
+printf '[VideoGUI package] Archivo: %s\n' "$OUTPUT_FILE"
+printf '[VideoGUI package] En el otro equipo: descomprime el ZIP y ejecuta bin/setup --install.\n'

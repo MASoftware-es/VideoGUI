@@ -1,0 +1,4424 @@
+{
+  "version": 1,
+  "languages": [
+    {
+      "id": "abk",
+      "name": "Abjaziano",
+      "aliases": [
+        "ab",
+        "abk",
+        "Abkhazian",
+        "Abjaziano"
+      ]
+    },
+    {
+      "id": "akk",
+      "name": "Acadio",
+      "aliases": [
+        "akk",
+        "Akkadian",
+        "Acadio"
+      ]
+    },
+    {
+      "id": "ace",
+      "name": "Achinese",
+      "aliases": [
+        "ace",
+        "Achinese"
+      ]
+    },
+    {
+      "id": "ach",
+      "name": "Acoli",
+      "aliases": [
+        "ach",
+        "Acoli"
+      ]
+    },
+    {
+      "id": "ada",
+      "name": "Adangme",
+      "aliases": [
+        "ada",
+        "Adangme"
+      ]
+    },
+    {
+      "id": "ady",
+      "name": "Adigué",
+      "aliases": [
+        "ady",
+        "Adyghe",
+        "Adigué"
+      ]
+    },
+    {
+      "id": "aar",
+      "name": "Afar",
+      "aliases": [
+        "aa",
+        "aar",
+        "Afar"
+      ]
+    },
+    {
+      "id": "afh",
+      "name": "Afrihili",
+      "aliases": [
+        "afh",
+        "Afrihili"
+      ]
+    },
+    {
+      "id": "afr",
+      "name": "Afrikaans",
+      "aliases": [
+        "af",
+        "afr",
+        "Afrikaans"
+      ]
+    },
+    {
+      "id": "ain",
+      "name": "Ainu",
+      "aliases": [
+        "ain",
+        "Ainu"
+      ]
+    },
+    {
+      "id": "aka",
+      "name": "Akan",
+      "aliases": [
+        "ak",
+        "aka",
+        "Akan"
+      ]
+    },
+    {
+      "id": "sqi",
+      "name": "Albanés",
+      "aliases": [
+        "sq",
+        "sqi",
+        "alb",
+        "Albanian",
+        "Albanés"
+      ]
+    },
+    {
+      "id": "deu",
+      "name": "Alemán",
+      "aliases": [
+        "de",
+        "deu",
+        "ger",
+        "German",
+        "Alemán",
+        "alemán",
+        "aleman",
+        "german",
+        "deutsch"
+      ]
+    },
+    {
+      "id": "gsw",
+      "name": "Alemán suizo",
+      "aliases": [
+        "gsw",
+        "Swiss German",
+        "Alemán suizo"
+      ]
+    },
+    {
+      "id": "gmh",
+      "name": "Alemán, Alta Edad Media (ca. 1050-1500)",
+      "aliases": [
+        "gmh",
+        "German, Middle High (ca. 1050-1500)",
+        "Alemán, Alta Edad Media (ca. 1050-1500)"
+      ]
+    },
+    {
+      "id": "goh",
+      "name": "Alemán, Baja Edad Media (ca. 750-1050)",
+      "aliases": [
+        "goh",
+        "German, Old High (ca. 750-1050)",
+        "Alemán, Baja Edad Media (ca. 750-1050)"
+      ]
+    },
+    {
+      "id": "ale",
+      "name": "Aleutiano",
+      "aliases": [
+        "ale",
+        "Aleut",
+        "Aleutiano"
+      ]
+    },
+    {
+      "id": "alg",
+      "name": "Algonquinas, lenguas",
+      "aliases": [
+        "alg",
+        "Algonquian languages",
+        "Algonquinas, lenguas"
+      ]
+    },
+    {
+      "id": "alt",
+      "name": "Altai del Sur",
+      "aliases": [
+        "alt",
+        "Southern Altai",
+        "Altai del Sur"
+      ]
+    },
+    {
+      "id": "anp",
+      "name": "Angika",
+      "aliases": [
+        "anp",
+        "Angika"
+      ]
+    },
+    {
+      "id": "apa",
+      "name": "Apache, lenguas",
+      "aliases": [
+        "apa",
+        "Apache languages",
+        "Apache, lenguas"
+      ]
+    },
+    {
+      "id": "arg",
+      "name": "Aragonés",
+      "aliases": [
+        "an",
+        "arg",
+        "Aragonese",
+        "Aragonés"
+      ]
+    },
+    {
+      "id": "arc",
+      "name": "Arameo oficial (700-300 AC)",
+      "aliases": [
+        "arc",
+        "Official Aramaic (700-300 BCE)",
+        "Arameo oficial (700-300 AC)"
+      ]
+    },
+    {
+      "id": "arp",
+      "name": "Arapaho",
+      "aliases": [
+        "arp",
+        "Arapaho"
+      ]
+    },
+    {
+      "id": "arw",
+      "name": "Arawak",
+      "aliases": [
+        "arw",
+        "Arawak"
+      ]
+    },
+    {
+      "id": "hye",
+      "name": "Armenio",
+      "aliases": [
+        "hy",
+        "hye",
+        "arm",
+        "Armenian",
+        "Armenio"
+      ]
+    },
+    {
+      "id": "asm",
+      "name": "Assamais",
+      "aliases": [
+        "as",
+        "asm",
+        "Assamese",
+        "Assamais"
+      ]
+    },
+    {
+      "id": "ast",
+      "name": "Asturiano",
+      "aliases": [
+        "ast",
+        "Asturian",
+        "Asturiano"
+      ]
+    },
+    {
+      "id": "ath",
+      "name": "Atabascas, lenguas",
+      "aliases": [
+        "ath",
+        "Athapascan languages",
+        "Atabascas, lenguas"
+      ]
+    },
+    {
+      "id": "aus",
+      "name": "Australianas, lenguas",
+      "aliases": [
+        "aus",
+        "Australian languages",
+        "Australianas, lenguas"
+      ]
+    },
+    {
+      "id": "ava",
+      "name": "Avaric",
+      "aliases": [
+        "av",
+        "ava",
+        "Avaric"
+      ]
+    },
+    {
+      "id": "ave",
+      "name": "Avestan",
+      "aliases": [
+        "ae",
+        "ave",
+        "Avestan"
+      ]
+    },
+    {
+      "id": "awa",
+      "name": "Awadhi",
+      "aliases": [
+        "awa",
+        "Awadhi"
+      ]
+    },
+    {
+      "id": "aym",
+      "name": "Aymará",
+      "aliases": [
+        "ay",
+        "aym",
+        "Aymara",
+        "Aymará"
+      ]
+    },
+    {
+      "id": "aze",
+      "name": "Azerbayano",
+      "aliases": [
+        "az",
+        "aze",
+        "Azerbaijani",
+        "Azerbayano"
+      ]
+    },
+    {
+      "id": "nds",
+      "name": "Bajo alemán",
+      "aliases": [
+        "nds",
+        "Low German",
+        "Bajo alemán"
+      ]
+    },
+    {
+      "id": "ban",
+      "name": "Balinés",
+      "aliases": [
+        "ban",
+        "Balinese",
+        "Balinés"
+      ]
+    },
+    {
+      "id": "bal",
+      "name": "Baluchi",
+      "aliases": [
+        "bal",
+        "Baluchi"
+      ]
+    },
+    {
+      "id": "bam",
+      "name": "Bambara",
+      "aliases": [
+        "bm",
+        "bam",
+        "Bambara"
+      ]
+    },
+    {
+      "id": "bai",
+      "name": "Bamileke, lenguas",
+      "aliases": [
+        "bai",
+        "Bamileke languages",
+        "Bamileke, lenguas"
+      ]
+    },
+    {
+      "id": "bad",
+      "name": "Banda, lenguas",
+      "aliases": [
+        "bad",
+        "Banda languages",
+        "Banda, lenguas"
+      ]
+    },
+    {
+      "id": "bas",
+      "name": "Basa",
+      "aliases": [
+        "bas",
+        "Basa"
+      ]
+    },
+    {
+      "id": "bak",
+      "name": "Bashkir",
+      "aliases": [
+        "ba",
+        "bak",
+        "Bashkir"
+      ]
+    },
+    {
+      "id": "btk",
+      "name": "Batak, lenguas",
+      "aliases": [
+        "btk",
+        "Batak languages",
+        "Batak, lenguas"
+      ]
+    },
+    {
+      "id": "bem",
+      "name": "Bemba",
+      "aliases": [
+        "bem",
+        "Bemba"
+      ]
+    },
+    {
+      "id": "ben",
+      "name": "Bengalí",
+      "aliases": [
+        "bn",
+        "ben",
+        "Bengali",
+        "Bengalí"
+      ]
+    },
+    {
+      "id": "bej",
+      "name": "Beya",
+      "aliases": [
+        "bej",
+        "Beja",
+        "Beya"
+      ]
+    },
+    {
+      "id": "bho",
+      "name": "Bhojpuri",
+      "aliases": [
+        "bho",
+        "Bhojpuri"
+      ]
+    },
+    {
+      "id": "bel",
+      "name": "Bieloruso",
+      "aliases": [
+        "be",
+        "bel",
+        "Belarusian",
+        "Bieloruso"
+      ]
+    },
+    {
+      "id": "bik",
+      "name": "Bikol",
+      "aliases": [
+        "bik",
+        "Bikol"
+      ]
+    },
+    {
+      "id": "bin",
+      "name": "Bini",
+      "aliases": [
+        "bin",
+        "Bini"
+      ]
+    },
+    {
+      "id": "mya",
+      "name": "Birmano",
+      "aliases": [
+        "my",
+        "mya",
+        "bur",
+        "Burmese",
+        "Birmano"
+      ]
+    },
+    {
+      "id": "bis",
+      "name": "Bislama",
+      "aliases": [
+        "bi",
+        "bis",
+        "Bislama"
+      ]
+    },
+    {
+      "id": "byn",
+      "name": "Blin (Bilin)",
+      "aliases": [
+        "byn",
+        "Blin",
+        "Blin (Bilin)"
+      ]
+    },
+    {
+      "id": "zbl",
+      "name": "Blissymbols",
+      "aliases": [
+        "zbl",
+        "Blissymbols"
+      ]
+    },
+    {
+      "id": "nob",
+      "name": "Bokmål, Noruego",
+      "aliases": [
+        "nb",
+        "nob",
+        "Bokmål, Norwegian",
+        "Bokmål, Noruego"
+      ]
+    },
+    {
+      "id": "bos",
+      "name": "Bosnio",
+      "aliases": [
+        "bs",
+        "bos",
+        "Bosnian",
+        "Bosnio"
+      ]
+    },
+    {
+      "id": "bra",
+      "name": "Braj",
+      "aliases": [
+        "bra",
+        "Braj"
+      ]
+    },
+    {
+      "id": "bre",
+      "name": "Bretón",
+      "aliases": [
+        "br",
+        "bre",
+        "Breton",
+        "Bretón"
+      ]
+    },
+    {
+      "id": "bug",
+      "name": "buguinés",
+      "aliases": [
+        "bug",
+        "Buginese",
+        "buguinés"
+      ]
+    },
+    {
+      "id": "bua",
+      "name": "Buriat",
+      "aliases": [
+        "bua",
+        "Buriat"
+      ]
+    },
+    {
+      "id": "dzo",
+      "name": "Butaní",
+      "aliases": [
+        "dz",
+        "dzo",
+        "Dzongkha",
+        "Butaní"
+      ]
+    },
+    {
+      "id": "bul",
+      "name": "Búlgaro",
+      "aliases": [
+        "bg",
+        "bul",
+        "Bulgarian",
+        "Búlgaro"
+      ]
+    },
+    {
+      "id": "cad",
+      "name": "Caddo",
+      "aliases": [
+        "cad",
+        "Caddo"
+      ]
+    },
+    {
+      "id": "khm",
+      "name": "Camboyano (jémer) central",
+      "aliases": [
+        "km",
+        "khm",
+        "Central Khmer",
+        "Camboyano (jémer) central"
+      ]
+    },
+    {
+      "id": "kan",
+      "name": "Canarés",
+      "aliases": [
+        "kn",
+        "kan",
+        "Kannada",
+        "Canarés"
+      ]
+    },
+    {
+      "id": "cat",
+      "name": "Catalán, Valenciano",
+      "aliases": [
+        "ca",
+        "cat",
+        "Catalan",
+        "Catalán, Valenciano",
+        "catalán",
+        "catalan",
+        "català"
+      ]
+    },
+    {
+      "id": "ceb",
+      "name": "Cebuano",
+      "aliases": [
+        "ceb",
+        "Cebuano"
+      ]
+    },
+    {
+      "id": "chg",
+      "name": "Chagatai",
+      "aliases": [
+        "chg",
+        "Chagatai"
+      ]
+    },
+    {
+      "id": "cmc",
+      "name": "Chamic, lenguas",
+      "aliases": [
+        "cmc",
+        "Chamic languages",
+        "Chamic, lenguas"
+      ]
+    },
+    {
+      "id": "cha",
+      "name": "Chamorro",
+      "aliases": [
+        "ch",
+        "cha",
+        "Chamorro"
+      ]
+    },
+    {
+      "id": "che",
+      "name": "Checheno",
+      "aliases": [
+        "ce",
+        "che",
+        "Chechen",
+        "Checheno"
+      ]
+    },
+    {
+      "id": "ces",
+      "name": "Checo",
+      "aliases": [
+        "cs",
+        "ces",
+        "cze",
+        "Czech",
+        "Checo"
+      ]
+    },
+    {
+      "id": "chr",
+      "name": "cheroqui",
+      "aliases": [
+        "chr",
+        "Cherokee",
+        "cheroqui"
+      ]
+    },
+    {
+      "id": "nya",
+      "name": "Chewa",
+      "aliases": [
+        "ny",
+        "nya",
+        "Chichewa",
+        "Chewa"
+      ]
+    },
+    {
+      "id": "chy",
+      "name": "Cheyenne",
+      "aliases": [
+        "chy",
+        "Cheyenne"
+      ]
+    },
+    {
+      "id": "chb",
+      "name": "Chibcha",
+      "aliases": [
+        "chb",
+        "Chibcha"
+      ]
+    },
+    {
+      "id": "zho",
+      "name": "Chino",
+      "aliases": [
+        "zh",
+        "zho",
+        "chi",
+        "Chinese",
+        "Chino",
+        "chino",
+        "chinese",
+        "mandarin"
+      ]
+    },
+    {
+      "id": "chn",
+      "name": "Chinook, jerga",
+      "aliases": [
+        "chn",
+        "Chinook jargon",
+        "Chinook, jerga"
+      ]
+    },
+    {
+      "id": "chp",
+      "name": "Chipewyan",
+      "aliases": [
+        "chp",
+        "Chipewyan"
+      ]
+    },
+    {
+      "id": "cho",
+      "name": "Choctaw",
+      "aliases": [
+        "cho",
+        "Choctaw"
+      ]
+    },
+    {
+      "id": "chk",
+      "name": "Chuukese",
+      "aliases": [
+        "chk",
+        "Chuukese"
+      ]
+    },
+    {
+      "id": "chv",
+      "name": "Chuvash",
+      "aliases": [
+        "cv",
+        "chv",
+        "Chuvash"
+      ]
+    },
+    {
+      "id": "cop",
+      "name": "Copto",
+      "aliases": [
+        "cop",
+        "Coptic",
+        "Copto"
+      ]
+    },
+    {
+      "id": "kor",
+      "name": "Coreano",
+      "aliases": [
+        "ko",
+        "kor",
+        "Korean",
+        "Coreano",
+        "coreano",
+        "korean"
+      ]
+    },
+    {
+      "id": "cos",
+      "name": "Corso",
+      "aliases": [
+        "co",
+        "cos",
+        "Corsican",
+        "Corso"
+      ]
+    },
+    {
+      "id": "cre",
+      "name": "Cree",
+      "aliases": [
+        "cr",
+        "cre",
+        "Cree"
+      ]
+    },
+    {
+      "id": "mus",
+      "name": "Creek",
+      "aliases": [
+        "mus",
+        "Creek"
+      ]
+    },
+    {
+      "id": "crp",
+      "name": "Criollos y pidgins",
+      "aliases": [
+        "crp",
+        "Creoles and pidgins",
+        "Criollos y pidgins"
+      ]
+    },
+    {
+      "id": "cpf",
+      "name": "Criollos y pidgins basados en el francés",
+      "aliases": [
+        "cpf",
+        "Creoles and pidgins, French-based",
+        "Criollos y pidgins basados en el francés"
+      ]
+    },
+    {
+      "id": "cpe",
+      "name": "Criollos y pidgins basados en el inglés",
+      "aliases": [
+        "cpe",
+        "Creoles and pidgins, English based",
+        "Criollos y pidgins basados en el inglés"
+      ]
+    },
+    {
+      "id": "cpp",
+      "name": "Criollos y pidgins basados en el portugués",
+      "aliases": [
+        "cpp",
+        "Creoles and pidgins, Portuguese-based",
+        "Criollos y pidgins basados en el portugués"
+      ]
+    },
+    {
+      "id": "hrv",
+      "name": "Croata",
+      "aliases": [
+        "hr",
+        "hrv",
+        "Croatian",
+        "Croata"
+      ]
+    },
+    {
+      "id": "cor",
+      "name": "Córnico",
+      "aliases": [
+        "kw",
+        "cor",
+        "Cornish",
+        "Córnico"
+      ]
+    },
+    {
+      "id": "dak",
+      "name": "Dakota",
+      "aliases": [
+        "dak",
+        "Dakota"
+      ]
+    },
+    {
+      "id": "dan",
+      "name": "Danés",
+      "aliases": [
+        "da",
+        "dan",
+        "Danish",
+        "Danés"
+      ]
+    },
+    {
+      "id": "dar",
+      "name": "Dargwa",
+      "aliases": [
+        "dar",
+        "Dargwa"
+      ]
+    },
+    {
+      "id": "del",
+      "name": "Delaware",
+      "aliases": [
+        "del",
+        "Delaware"
+      ]
+    },
+    {
+      "id": "din",
+      "name": "Dinka",
+      "aliases": [
+        "din",
+        "Dinka"
+      ]
+    },
+    {
+      "id": "doi",
+      "name": "Dogri",
+      "aliases": [
+        "doi",
+        "Dogri"
+      ]
+    },
+    {
+      "id": "dgr",
+      "name": "Dogrib",
+      "aliases": [
+        "dgr",
+        "Dogrib"
+      ]
+    },
+    {
+      "id": "dua",
+      "name": "Duala",
+      "aliases": [
+        "dua",
+        "Duala"
+      ]
+    },
+    {
+      "id": "dyu",
+      "name": "Dyula",
+      "aliases": [
+        "dyu",
+        "Dyula"
+      ]
+    },
+    {
+      "id": "efi",
+      "name": "Efik",
+      "aliases": [
+        "efi",
+        "Efik"
+      ]
+    },
+    {
+      "id": "egy",
+      "name": "Egipcio (Antiguo)",
+      "aliases": [
+        "egy",
+        "Egyptian (Ancient)",
+        "Egipcio (Antiguo)"
+      ]
+    },
+    {
+      "id": "eka",
+      "name": "Ekajuk",
+      "aliases": [
+        "eka",
+        "Ekajuk"
+      ]
+    },
+    {
+      "id": "elx",
+      "name": "Elamita",
+      "aliases": [
+        "elx",
+        "Elamite",
+        "Elamita"
+      ]
+    },
+    {
+      "id": "myv",
+      "name": "Erzya",
+      "aliases": [
+        "myv",
+        "Erzya"
+      ]
+    },
+    {
+      "id": "sco",
+      "name": "Escocés",
+      "aliases": [
+        "sco",
+        "Scots",
+        "Escocés"
+      ]
+    },
+    {
+      "id": "den",
+      "name": "Eslavo (Athapascan)",
+      "aliases": [
+        "den",
+        "Slave (Athapascan)",
+        "Eslavo (Athapascan)"
+      ]
+    },
+    {
+      "id": "chu",
+      "name": "Eslavo eclesiástico antiguo",
+      "aliases": [
+        "cu",
+        "chu",
+        "Church Slavic",
+        "Eslavo eclesiástico antiguo"
+      ]
+    },
+    {
+      "id": "slk",
+      "name": "Eslovaco",
+      "aliases": [
+        "sk",
+        "slk",
+        "slo",
+        "Slovak",
+        "Eslovaco"
+      ]
+    },
+    {
+      "id": "slv",
+      "name": "Esloveno",
+      "aliases": [
+        "sl",
+        "slv",
+        "Slovenian",
+        "Esloveno"
+      ]
+    },
+    {
+      "id": "spa",
+      "name": "Español",
+      "aliases": [
+        "es",
+        "spa",
+        "Spanish",
+        "Español",
+        "español",
+        "espanol",
+        "castellano",
+        "spanish",
+        "spain"
+      ]
+    },
+    {
+      "id": "epo",
+      "name": "Esperanto",
+      "aliases": [
+        "eo",
+        "epo",
+        "Esperanto"
+      ]
+    },
+    {
+      "id": "est",
+      "name": "Estonio",
+      "aliases": [
+        "et",
+        "est",
+        "Estonian",
+        "Estonio"
+      ]
+    },
+    {
+      "id": "ewe",
+      "name": "Ewe",
+      "aliases": [
+        "ee",
+        "ewe",
+        "Ewe"
+      ]
+    },
+    {
+      "id": "ewo",
+      "name": "Ewondo",
+      "aliases": [
+        "ewo",
+        "Ewondo"
+      ]
+    },
+    {
+      "id": "fan",
+      "name": "Fang",
+      "aliases": [
+        "fan",
+        "Fang"
+      ]
+    },
+    {
+      "id": "fat",
+      "name": "Fanti",
+      "aliases": [
+        "fat",
+        "Fanti"
+      ]
+    },
+    {
+      "id": "phn",
+      "name": "Fenicio",
+      "aliases": [
+        "phn",
+        "Phoenician",
+        "Fenicio"
+      ]
+    },
+    {
+      "id": "fao",
+      "name": "Feroés",
+      "aliases": [
+        "fo",
+        "fao",
+        "Faroese",
+        "Feroés"
+      ]
+    },
+    {
+      "id": "fij",
+      "name": "Fidji",
+      "aliases": [
+        "fj",
+        "fij",
+        "Fijian",
+        "Fidji"
+      ]
+    },
+    {
+      "id": "fil",
+      "name": "Filipino",
+      "aliases": [
+        "fil",
+        "Filipino"
+      ]
+    },
+    {
+      "id": "fin",
+      "name": "Finés",
+      "aliases": [
+        "fi",
+        "fin",
+        "Finnish",
+        "Finés"
+      ]
+    },
+    {
+      "id": "fon",
+      "name": "Fon",
+      "aliases": [
+        "fon",
+        "Fon"
+      ]
+    },
+    {
+      "id": "fra",
+      "name": "Francés",
+      "aliases": [
+        "fr",
+        "fra",
+        "fre",
+        "French",
+        "Francés",
+        "francés",
+        "frances",
+        "french"
+      ]
+    },
+    {
+      "id": "fro",
+      "name": "Francés Arcaico (842-ca. 1400)",
+      "aliases": [
+        "fro",
+        "French, Old (842-ca. 1400)",
+        "Francés Arcaico (842-ca. 1400)"
+      ]
+    },
+    {
+      "id": "frm",
+      "name": "Francés Medieval (ca. 1400-1600)",
+      "aliases": [
+        "frm",
+        "French, Middle (ca. 1400-1600)",
+        "Francés Medieval (ca. 1400-1600)"
+      ]
+    },
+    {
+      "id": "fry",
+      "name": "Frisón occidental",
+      "aliases": [
+        "fy",
+        "fry",
+        "Western Frisian",
+        "Frisón occidental"
+      ]
+    },
+    {
+      "id": "frs",
+      "name": "Frisón oriental",
+      "aliases": [
+        "frs",
+        "Eastern Frisian",
+        "Frisón oriental"
+      ]
+    },
+    {
+      "id": "frr",
+      "name": "Frisón septentrional",
+      "aliases": [
+        "frr",
+        "Northern Frisian",
+        "Frisón septentrional"
+      ]
+    },
+    {
+      "id": "fur",
+      "name": "Friuliano",
+      "aliases": [
+        "fur",
+        "Friulian",
+        "Friuliano"
+      ]
+    },
+    {
+      "id": "ful",
+      "name": "Fulah",
+      "aliases": [
+        "ff",
+        "ful",
+        "Fulah"
+      ]
+    },
+    {
+      "id": "gaa",
+      "name": "Ga",
+      "aliases": [
+        "gaa",
+        "Ga"
+      ]
+    },
+    {
+      "id": "car",
+      "name": "Galibi caribeño",
+      "aliases": [
+        "car",
+        "Galibi Carib",
+        "Galibi caribeño"
+      ]
+    },
+    {
+      "id": "glg",
+      "name": "Gallego",
+      "aliases": [
+        "gl",
+        "glg",
+        "Galician",
+        "Gallego",
+        "gallego",
+        "galego",
+        "galician"
+      ]
+    },
+    {
+      "id": "cym",
+      "name": "Galés",
+      "aliases": [
+        "cy",
+        "cym",
+        "wel",
+        "Welsh",
+        "Galés"
+      ]
+    },
+    {
+      "id": "lug",
+      "name": "Ganda",
+      "aliases": [
+        "lg",
+        "lug",
+        "Ganda"
+      ]
+    },
+    {
+      "id": "gay",
+      "name": "Gayo",
+      "aliases": [
+        "gay",
+        "Gayo"
+      ]
+    },
+    {
+      "id": "gla",
+      "name": "Gaélico, escocés gaélico",
+      "aliases": [
+        "gd",
+        "gla",
+        "Gaelic",
+        "Gaélico, escocés gaélico"
+      ]
+    },
+    {
+      "id": "gba",
+      "name": "Gbaya",
+      "aliases": [
+        "gba",
+        "Gbaya"
+      ]
+    },
+    {
+      "id": "gez",
+      "name": "Geez",
+      "aliases": [
+        "gez",
+        "Geez"
+      ]
+    },
+    {
+      "id": "kat",
+      "name": "Georgiano",
+      "aliases": [
+        "ka",
+        "kat",
+        "geo",
+        "Georgian",
+        "Georgiano"
+      ]
+    },
+    {
+      "id": "gil",
+      "name": "Gilbertés",
+      "aliases": [
+        "gil",
+        "Gilbertese",
+        "Gilbertés"
+      ]
+    },
+    {
+      "id": "gon",
+      "name": "Gondi",
+      "aliases": [
+        "gon",
+        "Gondi"
+      ]
+    },
+    {
+      "id": "gor",
+      "name": "Gorontalo",
+      "aliases": [
+        "gor",
+        "Gorontalo"
+      ]
+    },
+    {
+      "id": "grb",
+      "name": "Grebo",
+      "aliases": [
+        "grb",
+        "Grebo"
+      ]
+    },
+    {
+      "id": "grc",
+      "name": "Griego antiguo (<1453)",
+      "aliases": [
+        "grc",
+        "Greek, Ancient (to 1453)",
+        "Griego antiguo (<1453)"
+      ]
+    },
+    {
+      "id": "ell",
+      "name": "Griego Moderno (>1453)",
+      "aliases": [
+        "el",
+        "ell",
+        "gre",
+        "Greek, Modern (1453-)",
+        "Griego Moderno (>1453)"
+      ]
+    },
+    {
+      "id": "kal",
+      "name": "Groenlandés",
+      "aliases": [
+        "kl",
+        "kal",
+        "Kalaallisut",
+        "Groenlandés"
+      ]
+    },
+    {
+      "id": "grn",
+      "name": "Guaraní",
+      "aliases": [
+        "gn",
+        "grn",
+        "Guarani",
+        "Guaraní"
+      ]
+    },
+    {
+      "id": "guj",
+      "name": "guyaratí",
+      "aliases": [
+        "gu",
+        "guj",
+        "Gujarati",
+        "guyaratí"
+      ]
+    },
+    {
+      "id": "gwi",
+      "name": "Gwich'in",
+      "aliases": [
+        "gwi",
+        "Gwich'in"
+      ]
+    },
+    {
+      "id": "got",
+      "name": "Gótico",
+      "aliases": [
+        "got",
+        "Gothic",
+        "Gótico"
+      ]
+    },
+    {
+      "id": "hai",
+      "name": "Haida",
+      "aliases": [
+        "hai",
+        "Haida"
+      ]
+    },
+    {
+      "id": "hat",
+      "name": "Haitiano",
+      "aliases": [
+        "ht",
+        "hat",
+        "Haitian",
+        "Haitiano"
+      ]
+    },
+    {
+      "id": "hau",
+      "name": "Haussa",
+      "aliases": [
+        "ha",
+        "hau",
+        "Hausa",
+        "Haussa"
+      ]
+    },
+    {
+      "id": "haw",
+      "name": "Hawaiano",
+      "aliases": [
+        "haw",
+        "Hawaiian",
+        "Hawaiano"
+      ]
+    },
+    {
+      "id": "heb",
+      "name": "Hebreo",
+      "aliases": [
+        "he",
+        "heb",
+        "Hebrew",
+        "Hebreo"
+      ]
+    },
+    {
+      "id": "her",
+      "name": "Herero",
+      "aliases": [
+        "hz",
+        "her",
+        "Herero"
+      ]
+    },
+    {
+      "id": "hil",
+      "name": "Hiligainón",
+      "aliases": [
+        "hil",
+        "Hiligaynon",
+        "Hiligainón"
+      ]
+    },
+    {
+      "id": "hin",
+      "name": "Hindi",
+      "aliases": [
+        "hi",
+        "hin",
+        "Hindi"
+      ]
+    },
+    {
+      "id": "hmo",
+      "name": "Hiri Motu",
+      "aliases": [
+        "ho",
+        "hmo",
+        "Hiri Motu"
+      ]
+    },
+    {
+      "id": "hit",
+      "name": "Hitita",
+      "aliases": [
+        "hit",
+        "Hittite",
+        "Hitita"
+      ]
+    },
+    {
+      "id": "hmn",
+      "name": "Hmong",
+      "aliases": [
+        "hmn",
+        "Hmong"
+      ]
+    },
+    {
+      "id": "nld",
+      "name": "Holandés, Flamenco",
+      "aliases": [
+        "nl",
+        "nld",
+        "dut",
+        "Dutch",
+        "Holandés, Flamenco"
+      ]
+    },
+    {
+      "id": "hup",
+      "name": "Hupa",
+      "aliases": [
+        "hup",
+        "Hupa"
+      ]
+    },
+    {
+      "id": "hun",
+      "name": "Húngaro",
+      "aliases": [
+        "hu",
+        "hun",
+        "Hungarian",
+        "Húngaro"
+      ]
+    },
+    {
+      "id": "iba",
+      "name": "Iban",
+      "aliases": [
+        "iba",
+        "Iban"
+      ]
+    },
+    {
+      "id": "tut",
+      "name": "Idiomas altáicos",
+      "aliases": [
+        "tut",
+        "Altaic languages",
+        "Idiomas altáicos"
+      ]
+    },
+    {
+      "id": "map",
+      "name": "Idiomas austronesios",
+      "aliases": [
+        "map",
+        "Austronesian languages",
+        "Idiomas austronesios"
+      ]
+    },
+    {
+      "id": "bih",
+      "name": "Idiomas bihari",
+      "aliases": [
+        "bh",
+        "bih",
+        "Bihari languages",
+        "Idiomas bihari"
+      ]
+    },
+    {
+      "id": "cus",
+      "name": "Idiomas cushísticos",
+      "aliases": [
+        "cus",
+        "Cushitic languages",
+        "Idiomas cushísticos"
+      ]
+    },
+    {
+      "id": "day",
+      "name": "Idiomas de la tierra Dayak",
+      "aliases": [
+        "day",
+        "Land Dayak languages",
+        "Idiomas de la tierra Dayak"
+      ]
+    },
+    {
+      "id": "nic",
+      "name": "Idiomas del Niger-Kordofanianos",
+      "aliases": [
+        "nic",
+        "Niger-Kordofanian languages",
+        "Idiomas del Niger-Kordofanianos"
+      ]
+    },
+    {
+      "id": "dra",
+      "name": "Idiomas drávidos",
+      "aliases": [
+        "dra",
+        "Dravidian languages",
+        "Idiomas drávidos"
+      ]
+    },
+    {
+      "id": "sla",
+      "name": "Idiomas eslavos",
+      "aliases": [
+        "sla",
+        "Slavic languages",
+        "Idiomas eslavos"
+      ]
+    },
+    {
+      "id": "phi",
+      "name": "Idiomas filipinos",
+      "aliases": [
+        "phi",
+        "Philippine languages",
+        "Idiomas filipinos"
+      ]
+    },
+    {
+      "id": "him",
+      "name": "Idiomas Himachali",
+      "aliases": [
+        "him",
+        "Himachali languages",
+        "Idiomas Himachali"
+      ]
+    },
+    {
+      "id": "nai",
+      "name": "Idiomas indios de norteamérica",
+      "aliases": [
+        "nai",
+        "North American Indian languages",
+        "Idiomas indios de norteamérica"
+      ]
+    },
+    {
+      "id": "sai",
+      "name": "Idiomas indios sudamericanos (Otros)",
+      "aliases": [
+        "sai",
+        "South American Indian (Other)",
+        "Idiomas indios sudamericanos (Otros)"
+      ]
+    },
+    {
+      "id": "ine",
+      "name": "Idiomas indoeuropeos",
+      "aliases": [
+        "ine",
+        "Indo-European languages",
+        "Idiomas indoeuropeos"
+      ]
+    },
+    {
+      "id": "ira",
+      "name": "Idiomas iraníes",
+      "aliases": [
+        "ira",
+        "Iranian languages",
+        "Idiomas iraníes"
+      ]
+    },
+    {
+      "id": "khi",
+      "name": "Idiomas khoisan",
+      "aliases": [
+        "khi",
+        "Khoisan languages",
+        "Idiomas khoisan"
+      ]
+    },
+    {
+      "id": "mkh",
+      "name": "Idiomas mon-khemer",
+      "aliases": [
+        "mkh",
+        "Mon-Khmer languages",
+        "Idiomas mon-khemer"
+      ]
+    },
+    {
+      "id": "mis",
+      "name": "Idiomas no codificados",
+      "aliases": [
+        "mis",
+        "Uncoded languages",
+        "Idiomas no codificados"
+      ]
+    },
+    {
+      "id": "paa",
+      "name": "Idiomas papúes",
+      "aliases": [
+        "paa",
+        "Papuan languages",
+        "Idiomas papúes"
+      ]
+    },
+    {
+      "id": "roa",
+      "name": "Idiomas romances",
+      "aliases": [
+        "roa",
+        "Romance languages",
+        "Idiomas romances"
+      ]
+    },
+    {
+      "id": "smi",
+      "name": "Idiomas sami",
+      "aliases": [
+        "smi",
+        "Sami languages",
+        "Idiomas sami"
+      ]
+    },
+    {
+      "id": "sem",
+      "name": "Idiomas semíticos",
+      "aliases": [
+        "sem",
+        "Semitic languages",
+        "Idiomas semíticos"
+      ]
+    },
+    {
+      "id": "sit",
+      "name": "Idiomas sino-tibetanos",
+      "aliases": [
+        "sit",
+        "Sino-Tibetan languages",
+        "Idiomas sino-tibetanos"
+      ]
+    },
+    {
+      "id": "tai",
+      "name": "Idiomas tailandeses",
+      "aliases": [
+        "tai",
+        "Tai languages",
+        "Idiomas tailandeses"
+      ]
+    },
+    {
+      "id": "fiu",
+      "name": "Idiomas ugrofineses",
+      "aliases": [
+        "fiu",
+        "Finno-Ugrian languages",
+        "Idiomas ugrofineses"
+      ]
+    },
+    {
+      "id": "inc",
+      "name": "Idiomas índicos",
+      "aliases": [
+        "inc",
+        "Indic languages",
+        "Idiomas índicos"
+      ]
+    },
+    {
+      "id": "ido",
+      "name": "Ido",
+      "aliases": [
+        "io",
+        "ido",
+        "Ido"
+      ]
+    },
+    {
+      "id": "ibo",
+      "name": "Igbo",
+      "aliases": [
+        "ig",
+        "ibo",
+        "Igbo"
+      ]
+    },
+    {
+      "id": "ijo",
+      "name": "Ijo, lenguas",
+      "aliases": [
+        "ijo",
+        "Ijo languages",
+        "Ijo, lenguas"
+      ]
+    },
+    {
+      "id": "ilo",
+      "name": "Iloko",
+      "aliases": [
+        "ilo",
+        "Iloko"
+      ]
+    },
+    {
+      "id": "und",
+      "name": "Indeterminado",
+      "aliases": [
+        "und",
+        "Undetermined",
+        "Indeterminado"
+      ]
+    },
+    {
+      "id": "ind",
+      "name": "Indonesio",
+      "aliases": [
+        "id",
+        "ind",
+        "Indonesian",
+        "Indonesio"
+      ]
+    },
+    {
+      "id": "enm",
+      "name": "Ingles Medieval (1100-1500)",
+      "aliases": [
+        "enm",
+        "English, Middle (1100-1500)",
+        "Ingles Medieval (1100-1500)"
+      ]
+    },
+    {
+      "id": "eng",
+      "name": "Inglés",
+      "aliases": [
+        "en",
+        "eng",
+        "English",
+        "Inglés",
+        "inglés",
+        "ingles",
+        "english"
+      ]
+    },
+    {
+      "id": "ang",
+      "name": "Inglés Arcaico (ca. 450-1100)",
+      "aliases": [
+        "ang",
+        "English, Old (ca. 450-1100)",
+        "Inglés Arcaico (ca. 450-1100)"
+      ]
+    },
+    {
+      "id": "inh",
+      "name": "Ingush",
+      "aliases": [
+        "inh",
+        "Ingush"
+      ]
+    },
+    {
+      "id": "ina",
+      "name": "Interlingua (Asociación de la Lengua Auxiliar Internacional)",
+      "aliases": [
+        "ia",
+        "ina",
+        "Interlingua (International Auxiliary Language Association)",
+        "Interlingua (Asociación de la Lengua Auxiliar Internacional)"
+      ]
+    },
+    {
+      "id": "ile",
+      "name": "Interlingue",
+      "aliases": [
+        "ie",
+        "ile",
+        "Interlingue"
+      ]
+    },
+    {
+      "id": "iku",
+      "name": "Inuktitut",
+      "aliases": [
+        "iu",
+        "iku",
+        "Inuktitut"
+      ]
+    },
+    {
+      "id": "ipk",
+      "name": "Inupiak",
+      "aliases": [
+        "ik",
+        "ipk",
+        "Inupiaq",
+        "Inupiak"
+      ]
+    },
+    {
+      "id": "sga",
+      "name": "Irlandes arcaico (hasta 900)",
+      "aliases": [
+        "sga",
+        "Irish, Old (to 900)",
+        "Irlandes arcaico (hasta 900)"
+      ]
+    },
+    {
+      "id": "gle",
+      "name": "Irlandés",
+      "aliases": [
+        "ga",
+        "gle",
+        "Irish",
+        "Irlandés"
+      ]
+    },
+    {
+      "id": "mga",
+      "name": "Irlandés medieval (900-1200)",
+      "aliases": [
+        "mga",
+        "Irish, Middle (900-1200)",
+        "Irlandés medieval (900-1200)"
+      ]
+    },
+    {
+      "id": "iro",
+      "name": "Iroquíes, lenguas",
+      "aliases": [
+        "iro",
+        "Iroquoian languages",
+        "Iroquíes, lenguas"
+      ]
+    },
+    {
+      "id": "isl",
+      "name": "Islandés",
+      "aliases": [
+        "is",
+        "isl",
+        "ice",
+        "Icelandic",
+        "Islandés"
+      ]
+    },
+    {
+      "id": "ita",
+      "name": "Italiano",
+      "aliases": [
+        "it",
+        "ita",
+        "Italian",
+        "Italiano",
+        "italiano",
+        "italian"
+      ]
+    },
+    {
+      "id": "jpn",
+      "name": "Japonés",
+      "aliases": [
+        "ja",
+        "jpn",
+        "Japanese",
+        "Japonés",
+        "japonés",
+        "japones",
+        "japanese"
+      ]
+    },
+    {
+      "id": "jav",
+      "name": "Javanés",
+      "aliases": [
+        "jv",
+        "jav",
+        "Javanese",
+        "Javanés"
+      ]
+    },
+    {
+      "id": "jpr",
+      "name": "Judeo-Persa",
+      "aliases": [
+        "jpr",
+        "Judeo-Persian",
+        "Judeo-Persa"
+      ]
+    },
+    {
+      "id": "jrb",
+      "name": "Judeo-Árabigo",
+      "aliases": [
+        "jrb",
+        "Judeo-Arabic",
+        "Judeo-Árabigo"
+      ]
+    },
+    {
+      "id": "kbd",
+      "name": "Kabardiano",
+      "aliases": [
+        "kbd",
+        "Kabardian",
+        "Kabardiano"
+      ]
+    },
+    {
+      "id": "kab",
+      "name": "Kabyle",
+      "aliases": [
+        "kab",
+        "Kabyle"
+      ]
+    },
+    {
+      "id": "kac",
+      "name": "Kachin",
+      "aliases": [
+        "kac",
+        "Kachin"
+      ]
+    },
+    {
+      "id": "xal",
+      "name": "Kalmyk",
+      "aliases": [
+        "xal",
+        "Kalmyk"
+      ]
+    },
+    {
+      "id": "kam",
+      "name": "Kamba",
+      "aliases": [
+        "kam",
+        "Kamba"
+      ]
+    },
+    {
+      "id": "kau",
+      "name": "Kanuri",
+      "aliases": [
+        "kr",
+        "kau",
+        "Kanuri"
+      ]
+    },
+    {
+      "id": "kaa",
+      "name": "Kara-Kalpak",
+      "aliases": [
+        "kaa",
+        "Kara-Kalpak"
+      ]
+    },
+    {
+      "id": "krc",
+      "name": "Karachayo-Bálkaro",
+      "aliases": [
+        "krc",
+        "Karachay-Balkar",
+        "Karachayo-Bálkaro"
+      ]
+    },
+    {
+      "id": "krl",
+      "name": "Kareliano",
+      "aliases": [
+        "krl",
+        "Karelian",
+        "Kareliano"
+      ]
+    },
+    {
+      "id": "kar",
+      "name": "Karen, lenguas",
+      "aliases": [
+        "kar",
+        "Karen languages",
+        "Karen, lenguas"
+      ]
+    },
+    {
+      "id": "kas",
+      "name": "Kashmir",
+      "aliases": [
+        "ks",
+        "kas",
+        "Kashmiri",
+        "Kashmir"
+      ]
+    },
+    {
+      "id": "csb",
+      "name": "Kashubiano",
+      "aliases": [
+        "csb",
+        "Kashubian",
+        "Kashubiano"
+      ]
+    },
+    {
+      "id": "kaw",
+      "name": "Kawi",
+      "aliases": [
+        "kaw",
+        "Kawi"
+      ]
+    },
+    {
+      "id": "kaz",
+      "name": "Kazako",
+      "aliases": [
+        "kk",
+        "kaz",
+        "Kazakh",
+        "Kazako"
+      ]
+    },
+    {
+      "id": "kha",
+      "name": "Khasi",
+      "aliases": [
+        "kha",
+        "Khasi"
+      ]
+    },
+    {
+      "id": "kho",
+      "name": "Khotanés",
+      "aliases": [
+        "kho",
+        "Khotanese",
+        "Khotanés"
+      ]
+    },
+    {
+      "id": "kik",
+      "name": "Kikuyu, Gikuyu",
+      "aliases": [
+        "ki",
+        "kik",
+        "Kikuyu",
+        "Kikuyu, Gikuyu"
+      ]
+    },
+    {
+      "id": "kmb",
+      "name": "Kimbundu",
+      "aliases": [
+        "kmb",
+        "Kimbundu"
+      ]
+    },
+    {
+      "id": "kin",
+      "name": "Kinyarwanda",
+      "aliases": [
+        "rw",
+        "kin",
+        "Kinyarwanda"
+      ]
+    },
+    {
+      "id": "kir",
+      "name": "Kirghizo",
+      "aliases": [
+        "ky",
+        "kir",
+        "Kirghiz",
+        "Kirghizo"
+      ]
+    },
+    {
+      "id": "run",
+      "name": "Kiroundi",
+      "aliases": [
+        "rn",
+        "run",
+        "Rundi",
+        "Kiroundi"
+      ]
+    },
+    {
+      "id": "tlh",
+      "name": "Klingon",
+      "aliases": [
+        "tlh",
+        "Klingon"
+      ]
+    },
+    {
+      "id": "kom",
+      "name": "Komi",
+      "aliases": [
+        "kv",
+        "kom",
+        "Komi"
+      ]
+    },
+    {
+      "id": "kon",
+      "name": "Kongo",
+      "aliases": [
+        "kg",
+        "kon",
+        "Kongo"
+      ]
+    },
+    {
+      "id": "kok",
+      "name": "Konkani",
+      "aliases": [
+        "kok",
+        "Konkani"
+      ]
+    },
+    {
+      "id": "kos",
+      "name": "Kosraeano",
+      "aliases": [
+        "kos",
+        "Kosraean",
+        "Kosraeano"
+      ]
+    },
+    {
+      "id": "kpe",
+      "name": "Kpelle",
+      "aliases": [
+        "kpe",
+        "Kpelle"
+      ]
+    },
+    {
+      "id": "kro",
+      "name": "Kru, lenguas",
+      "aliases": [
+        "kro",
+        "Kru languages",
+        "Kru, lenguas"
+      ]
+    },
+    {
+      "id": "kua",
+      "name": "Kuanyama",
+      "aliases": [
+        "kj",
+        "kua",
+        "Kuanyama"
+      ]
+    },
+    {
+      "id": "kum",
+      "name": "Kumyk",
+      "aliases": [
+        "kum",
+        "Kumyk"
+      ]
+    },
+    {
+      "id": "kur",
+      "name": "Kurdo",
+      "aliases": [
+        "ku",
+        "kur",
+        "Kurdish",
+        "Kurdo"
+      ]
+    },
+    {
+      "id": "kru",
+      "name": "Kurukh",
+      "aliases": [
+        "kru",
+        "Kurukh"
+      ]
+    },
+    {
+      "id": "kut",
+      "name": "Kutenai",
+      "aliases": [
+        "kut",
+        "Kutenai"
+      ]
+    },
+    {
+      "id": "lad",
+      "name": "Ladino (Judeo-español)",
+      "aliases": [
+        "lad",
+        "Ladino",
+        "Ladino (Judeo-español)"
+      ]
+    },
+    {
+      "id": "lah",
+      "name": "Lahnda",
+      "aliases": [
+        "lah",
+        "Lahnda"
+      ]
+    },
+    {
+      "id": "lam",
+      "name": "Lamba",
+      "aliases": [
+        "lam",
+        "Lamba"
+      ]
+    },
+    {
+      "id": "lao",
+      "name": "laosiano",
+      "aliases": [
+        "lo",
+        "lao",
+        "Lao",
+        "laosiano"
+      ]
+    },
+    {
+      "id": "lat",
+      "name": "Latín",
+      "aliases": [
+        "la",
+        "lat",
+        "Latin",
+        "Latín"
+      ]
+    },
+    {
+      "id": "afa",
+      "name": "Lenguas afroasiáticas",
+      "aliases": [
+        "afa",
+        "Afro-Asiatic languages",
+        "Lenguas afroasiáticas"
+      ]
+    },
+    {
+      "id": "art",
+      "name": "Lenguas artificiales",
+      "aliases": [
+        "art",
+        "Artificial languages",
+        "Lenguas artificiales"
+      ]
+    },
+    {
+      "id": "bnt",
+      "name": "Lenguas bantúes",
+      "aliases": [
+        "bnt",
+        "Bantu (Other)",
+        "Lenguas bantúes"
+      ]
+    },
+    {
+      "id": "ber",
+      "name": "Lenguas bereberes",
+      "aliases": [
+        "ber",
+        "Berber languages",
+        "Lenguas bereberes"
+      ]
+    },
+    {
+      "id": "bat",
+      "name": "Lenguas bálticas",
+      "aliases": [
+        "bat",
+        "Baltic languages",
+        "Lenguas bálticas"
+      ]
+    },
+    {
+      "id": "cau",
+      "name": "Lenguas caucásicas",
+      "aliases": [
+        "cau",
+        "Caucasian languages",
+        "Lenguas caucásicas"
+      ]
+    },
+    {
+      "id": "cel",
+      "name": "Lenguas celtas",
+      "aliases": [
+        "cel",
+        "Celtic languages",
+        "Lenguas celtas"
+      ]
+    },
+    {
+      "id": "cai",
+      "name": "Lenguas de los indios de Centroamérica",
+      "aliases": [
+        "cai",
+        "Central American Indian languages",
+        "Lenguas de los indios de Centroamérica"
+      ]
+    },
+    {
+      "id": "gem",
+      "name": "Lenguas germánicas",
+      "aliases": [
+        "gem",
+        "Germanic languages",
+        "Lenguas germánicas"
+      ]
+    },
+    {
+      "id": "ssa",
+      "name": "Lenguas nilo-saharianas",
+      "aliases": [
+        "ssa",
+        "Nilo-Saharan languages",
+        "Lenguas nilo-saharianas"
+      ]
+    },
+    {
+      "id": "lav",
+      "name": "Letón",
+      "aliases": [
+        "lv",
+        "lav",
+        "Latvian",
+        "Letón"
+      ]
+    },
+    {
+      "id": "lez",
+      "name": "Lezghiano",
+      "aliases": [
+        "lez",
+        "Lezghian",
+        "Lezghiano"
+      ]
+    },
+    {
+      "id": "lim",
+      "name": "Limburgués",
+      "aliases": [
+        "li",
+        "lim",
+        "Limburgan",
+        "Limburgués"
+      ]
+    },
+    {
+      "id": "lin",
+      "name": "Lingala",
+      "aliases": [
+        "ln",
+        "lin",
+        "Lingala"
+      ]
+    },
+    {
+      "id": "lit",
+      "name": "Lituano",
+      "aliases": [
+        "lt",
+        "lit",
+        "Lithuanian",
+        "Lituano"
+      ]
+    },
+    {
+      "id": "jbo",
+      "name": "Lojban",
+      "aliases": [
+        "jbo",
+        "Lojban"
+      ]
+    },
+    {
+      "id": "loz",
+      "name": "Lozi",
+      "aliases": [
+        "loz",
+        "Lozi"
+      ]
+    },
+    {
+      "id": "lub",
+      "name": "Luba-Katanga",
+      "aliases": [
+        "lu",
+        "lub",
+        "Luba-Katanga"
+      ]
+    },
+    {
+      "id": "lua",
+      "name": "Luba-Lulua",
+      "aliases": [
+        "lua",
+        "Luba-Lulua"
+      ]
+    },
+    {
+      "id": "lui",
+      "name": "Luiseno",
+      "aliases": [
+        "lui",
+        "Luiseno"
+      ]
+    },
+    {
+      "id": "lun",
+      "name": "Lunda",
+      "aliases": [
+        "lun",
+        "Lunda"
+      ]
+    },
+    {
+      "id": "luo",
+      "name": "Luo (Kenia y Tanzania)",
+      "aliases": [
+        "luo",
+        "Luo (Kenya and Tanzania)",
+        "Luo (Kenia y Tanzania)"
+      ]
+    },
+    {
+      "id": "lus",
+      "name": "Lushai",
+      "aliases": [
+        "lus",
+        "Lushai"
+      ]
+    },
+    {
+      "id": "ltz",
+      "name": "Luxemburgués",
+      "aliases": [
+        "lb",
+        "ltz",
+        "Luxembourgish",
+        "Luxemburgués"
+      ]
+    },
+    {
+      "id": "mkd",
+      "name": "Macedonio",
+      "aliases": [
+        "mk",
+        "mkd",
+        "mac",
+        "Macedonian",
+        "Macedonio"
+      ]
+    },
+    {
+      "id": "mad",
+      "name": "Madurese",
+      "aliases": [
+        "mad",
+        "Madurese"
+      ]
+    },
+    {
+      "id": "mag",
+      "name": "Magahi",
+      "aliases": [
+        "mag",
+        "Magahi"
+      ]
+    },
+    {
+      "id": "mai",
+      "name": "Maithili",
+      "aliases": [
+        "mai",
+        "Maithili"
+      ]
+    },
+    {
+      "id": "mak",
+      "name": "Makasar",
+      "aliases": [
+        "mak",
+        "Makasar"
+      ]
+    },
+    {
+      "id": "mal",
+      "name": "malabar",
+      "aliases": [
+        "ml",
+        "mal",
+        "Malayalam",
+        "malabar"
+      ]
+    },
+    {
+      "id": "msa",
+      "name": "Malayo",
+      "aliases": [
+        "ms",
+        "msa",
+        "may",
+        "Malay",
+        "Malayo"
+      ]
+    },
+    {
+      "id": "div",
+      "name": "Maldivo",
+      "aliases": [
+        "dv",
+        "div",
+        "Divehi",
+        "Maldivo"
+      ]
+    },
+    {
+      "id": "mlg",
+      "name": "Malgache",
+      "aliases": [
+        "mg",
+        "mlg",
+        "Malagasy",
+        "Malgache"
+      ]
+    },
+    {
+      "id": "mlt",
+      "name": "Maltés",
+      "aliases": [
+        "mt",
+        "mlt",
+        "Maltese",
+        "Maltés"
+      ]
+    },
+    {
+      "id": "mnc",
+      "name": "Manchú",
+      "aliases": [
+        "mnc",
+        "Manchu",
+        "Manchú"
+      ]
+    },
+    {
+      "id": "mdr",
+      "name": "Mandar",
+      "aliases": [
+        "mdr",
+        "Mandar"
+      ]
+    },
+    {
+      "id": "man",
+      "name": "Mandingo",
+      "aliases": [
+        "man",
+        "Mandingo"
+      ]
+    },
+    {
+      "id": "mni",
+      "name": "Manipuri",
+      "aliases": [
+        "mni",
+        "Manipuri"
+      ]
+    },
+    {
+      "id": "mno",
+      "name": "Manobo, lenguas",
+      "aliases": [
+        "mno",
+        "Manobo languages",
+        "Manobo, lenguas"
+      ]
+    },
+    {
+      "id": "glv",
+      "name": "Manx [Gaélico de Manx]",
+      "aliases": [
+        "gv",
+        "glv",
+        "Manx",
+        "Manx [Gaélico de Manx]"
+      ]
+    },
+    {
+      "id": "mri",
+      "name": "Maorí",
+      "aliases": [
+        "mi",
+        "mri",
+        "mao",
+        "Maori",
+        "Maorí"
+      ]
+    },
+    {
+      "id": "arn",
+      "name": "Mapudungun",
+      "aliases": [
+        "arn",
+        "Mapudungun"
+      ]
+    },
+    {
+      "id": "mar",
+      "name": "Marath",
+      "aliases": [
+        "mr",
+        "mar",
+        "Marathi",
+        "Marath"
+      ]
+    },
+    {
+      "id": "chm",
+      "name": "Mari",
+      "aliases": [
+        "chm",
+        "Mari"
+      ]
+    },
+    {
+      "id": "mah",
+      "name": "Marshall",
+      "aliases": [
+        "mh",
+        "mah",
+        "Marshallese",
+        "Marshall"
+      ]
+    },
+    {
+      "id": "mwr",
+      "name": "Marwari",
+      "aliases": [
+        "mwr",
+        "Marwari"
+      ]
+    },
+    {
+      "id": "mas",
+      "name": "Masai",
+      "aliases": [
+        "mas",
+        "Masai"
+      ]
+    },
+    {
+      "id": "myn",
+      "name": "Mayas, lenguas",
+      "aliases": [
+        "myn",
+        "Mayan languages",
+        "Mayas, lenguas"
+      ]
+    },
+    {
+      "id": "men",
+      "name": "Mende",
+      "aliases": [
+        "men",
+        "Mende"
+      ]
+    },
+    {
+      "id": "mic",
+      "name": "Micmac",
+      "aliases": [
+        "mic",
+        "Mi'kmaq",
+        "Micmac"
+      ]
+    },
+    {
+      "id": "min",
+      "name": "Minangkabau",
+      "aliases": [
+        "min",
+        "Minangkabau"
+      ]
+    },
+    {
+      "id": "mwl",
+      "name": "Mirandés",
+      "aliases": [
+        "mwl",
+        "Mirandese",
+        "Mirandés"
+      ]
+    },
+    {
+      "id": "moh",
+      "name": "Mohawk",
+      "aliases": [
+        "moh",
+        "Mohawk"
+      ]
+    },
+    {
+      "id": "mdf",
+      "name": "Moksha",
+      "aliases": [
+        "mdf",
+        "Moksha"
+      ]
+    },
+    {
+      "id": "lol",
+      "name": "Mongo",
+      "aliases": [
+        "lol",
+        "Mongo"
+      ]
+    },
+    {
+      "id": "mon",
+      "name": "Mongol",
+      "aliases": [
+        "mn",
+        "mon",
+        "Mongolian",
+        "Mongol"
+      ]
+    },
+    {
+      "id": "cnr",
+      "name": "Montenegrino",
+      "aliases": [
+        "cnr",
+        "Montenegrin",
+        "Montenegrino"
+      ]
+    },
+    {
+      "id": "mos",
+      "name": "Mossi",
+      "aliases": [
+        "mos",
+        "Mossi"
+      ]
+    },
+    {
+      "id": "mul",
+      "name": "Multiples lenguas",
+      "aliases": [
+        "mul",
+        "Multiple languages",
+        "Multiples lenguas"
+      ]
+    },
+    {
+      "id": "mun",
+      "name": "Munda, lenguas",
+      "aliases": [
+        "mun",
+        "Munda languages",
+        "Munda, lenguas"
+      ]
+    },
+    {
+      "id": "nqo",
+      "name": "N'Ko",
+      "aliases": [
+        "nqo",
+        "N'Ko"
+      ]
+    },
+    {
+      "id": "nau",
+      "name": "Nauru",
+      "aliases": [
+        "na",
+        "nau",
+        "Nauru"
+      ]
+    },
+    {
+      "id": "nav",
+      "name": "Navajo",
+      "aliases": [
+        "nv",
+        "nav",
+        "Navajo"
+      ]
+    },
+    {
+      "id": "nde",
+      "name": "Ndebele del Norte",
+      "aliases": [
+        "nd",
+        "nde",
+        "Ndebele, North",
+        "Ndebele del Norte"
+      ]
+    },
+    {
+      "id": "nbl",
+      "name": "Ndebele del Sur",
+      "aliases": [
+        "nr",
+        "nbl",
+        "Ndebele, South",
+        "Ndebele del Sur"
+      ]
+    },
+    {
+      "id": "ndo",
+      "name": "Ndonga",
+      "aliases": [
+        "ng",
+        "ndo",
+        "Ndonga"
+      ]
+    },
+    {
+      "id": "nap",
+      "name": "Neapolitano",
+      "aliases": [
+        "nap",
+        "Neapolitan",
+        "Neapolitano"
+      ]
+    },
+    {
+      "id": "dum",
+      "name": "Neerlandés Medieval (ca. 1050-1350)",
+      "aliases": [
+        "dum",
+        "Dutch, Middle (ca. 1050-1350)",
+        "Neerlandés Medieval (ca. 1050-1350)"
+      ]
+    },
+    {
+      "id": "new",
+      "name": "Nepal Bhasa",
+      "aliases": [
+        "new",
+        "Nepal Bhasa"
+      ]
+    },
+    {
+      "id": "nep",
+      "name": "Nepalés",
+      "aliases": [
+        "ne",
+        "nep",
+        "Nepali",
+        "Nepalés"
+      ]
+    },
+    {
+      "id": "nwc",
+      "name": "Newari clásico",
+      "aliases": [
+        "nwc",
+        "Classical Newari",
+        "Newari clásico"
+      ]
+    },
+    {
+      "id": "nia",
+      "name": "Nias",
+      "aliases": [
+        "nia",
+        "Nias"
+      ]
+    },
+    {
+      "id": "niu",
+      "name": "Niuean",
+      "aliases": [
+        "niu",
+        "Niuean"
+      ]
+    },
+    {
+      "id": "nog",
+      "name": "Nogai",
+      "aliases": [
+        "nog",
+        "Nogai"
+      ]
+    },
+    {
+      "id": "nor",
+      "name": "Noruego",
+      "aliases": [
+        "no",
+        "nor",
+        "Norwegian",
+        "Noruego"
+      ]
+    },
+    {
+      "id": "non",
+      "name": "Noruego Antiguo",
+      "aliases": [
+        "non",
+        "Norse, Old",
+        "Noruego Antiguo"
+      ]
+    },
+    {
+      "id": "nno",
+      "name": "Noruego Nynorsk",
+      "aliases": [
+        "nn",
+        "nno",
+        "Norwegian Nynorsk",
+        "Noruego Nynorsk"
+      ]
+    },
+    {
+      "id": "nub",
+      "name": "Nubias, lenguas",
+      "aliases": [
+        "nub",
+        "Nubian languages",
+        "Nubias, lenguas"
+      ]
+    },
+    {
+      "id": "nym",
+      "name": "Nyamwezi",
+      "aliases": [
+        "nym",
+        "Nyamwezi"
+      ]
+    },
+    {
+      "id": "nyn",
+      "name": "Nyankole",
+      "aliases": [
+        "nyn",
+        "Nyankole"
+      ]
+    },
+    {
+      "id": "nyo",
+      "name": "Nyoro",
+      "aliases": [
+        "nyo",
+        "Nyoro"
+      ]
+    },
+    {
+      "id": "nzi",
+      "name": "Nzima",
+      "aliases": [
+        "nzi",
+        "Nzima"
+      ]
+    },
+    {
+      "id": "nah",
+      "name": "Náhuatl, lenguas",
+      "aliases": [
+        "nah",
+        "Nahuatl languages",
+        "Náhuatl, lenguas"
+      ]
+    },
+    {
+      "id": "oci",
+      "name": "Occitano (después de 1500)",
+      "aliases": [
+        "oc",
+        "oci",
+        "Occitan (post 1500)",
+        "Occitano (después de 1500)"
+      ]
+    },
+    {
+      "id": "oji",
+      "name": "Ojibwa",
+      "aliases": [
+        "oj",
+        "oji",
+        "Ojibwa"
+      ]
+    },
+    {
+      "id": "ori",
+      "name": "Oriya",
+      "aliases": [
+        "or",
+        "ori",
+        "Oriya"
+      ]
+    },
+    {
+      "id": "orm",
+      "name": "Oromo (Afan)",
+      "aliases": [
+        "om",
+        "orm",
+        "Oromo",
+        "Oromo (Afan)"
+      ]
+    },
+    {
+      "id": "osa",
+      "name": "Osage",
+      "aliases": [
+        "osa",
+        "Osage"
+      ]
+    },
+    {
+      "id": "oss",
+      "name": "Ossetiano",
+      "aliases": [
+        "os",
+        "oss",
+        "Ossetian",
+        "Ossetiano"
+      ]
+    },
+    {
+      "id": "oto",
+      "name": "Otomanas, lenguas",
+      "aliases": [
+        "oto",
+        "Otomian languages",
+        "Otomanas, lenguas"
+      ]
+    },
+    {
+      "id": "pal",
+      "name": "Pahlavi",
+      "aliases": [
+        "pal",
+        "Pahlavi"
+      ]
+    },
+    {
+      "id": "pau",
+      "name": "Palauan",
+      "aliases": [
+        "pau",
+        "Palauan"
+      ]
+    },
+    {
+      "id": "pli",
+      "name": "Pali",
+      "aliases": [
+        "pi",
+        "pli",
+        "Pali"
+      ]
+    },
+    {
+      "id": "pam",
+      "name": "Pampanga",
+      "aliases": [
+        "pam",
+        "Pampanga"
+      ]
+    },
+    {
+      "id": "pag",
+      "name": "Pangasinan",
+      "aliases": [
+        "pag",
+        "Pangasinan"
+      ]
+    },
+    {
+      "id": "pan",
+      "name": "Panyabí",
+      "aliases": [
+        "pa",
+        "pan",
+        "Panjabi",
+        "Panyabí"
+      ]
+    },
+    {
+      "id": "pap",
+      "name": "Papiamento",
+      "aliases": [
+        "pap",
+        "Papiamento"
+      ]
+    },
+    {
+      "id": "nso",
+      "name": "Pedi",
+      "aliases": [
+        "nso",
+        "Pedi"
+      ]
+    },
+    {
+      "id": "fas",
+      "name": "Persa",
+      "aliases": [
+        "fa",
+        "fas",
+        "per",
+        "Persian",
+        "Persa"
+      ]
+    },
+    {
+      "id": "peo",
+      "name": "Persa antiguo (ca. 600-400 a.C.)",
+      "aliases": [
+        "peo",
+        "Persian, Old (ca. 600-400 B.C.)",
+        "Persa antiguo (ca. 600-400 a.C.)"
+      ]
+    },
+    {
+      "id": "pon",
+      "name": "Pohnpeian",
+      "aliases": [
+        "pon",
+        "Pohnpeian"
+      ]
+    },
+    {
+      "id": "pol",
+      "name": "Polaco",
+      "aliases": [
+        "pl",
+        "pol",
+        "Polish",
+        "Polaco"
+      ]
+    },
+    {
+      "id": "por",
+      "name": "Portugués",
+      "aliases": [
+        "pt",
+        "por",
+        "Portuguese",
+        "Portugués",
+        "portugués",
+        "portugues",
+        "portuguese"
+      ]
+    },
+    {
+      "id": "pra",
+      "name": "Prakrit, lenguas",
+      "aliases": [
+        "pra",
+        "Prakrit languages",
+        "Prakrit, lenguas"
+      ]
+    },
+    {
+      "id": "pro",
+      "name": "Provenzal antiguo (hasta 1500)",
+      "aliases": [
+        "pro",
+        "Provençal, Old (to 1500)",
+        "Provenzal antiguo (hasta 1500)"
+      ]
+    },
+    {
+      "id": "pus",
+      "name": "Pushto",
+      "aliases": [
+        "ps",
+        "pus",
+        "Pushto"
+      ]
+    },
+    {
+      "id": "que",
+      "name": "Quechua",
+      "aliases": [
+        "qu",
+        "que",
+        "Quechua"
+      ]
+    },
+    {
+      "id": "raj",
+      "name": "Rajasthani",
+      "aliases": [
+        "raj",
+        "Rajasthani"
+      ]
+    },
+    {
+      "id": "rap",
+      "name": "Rapanui",
+      "aliases": [
+        "rap",
+        "Rapanui"
+      ]
+    },
+    {
+      "id": "rar",
+      "name": "Rarotongan",
+      "aliases": [
+        "rar",
+        "Rarotongan"
+      ]
+    },
+    {
+      "id": "qaa-qtz",
+      "name": "Reservado para uso local",
+      "aliases": [
+        "qaa-qtz",
+        "Reserved for local use",
+        "Reservado para uso local"
+      ]
+    },
+    {
+      "id": "roh",
+      "name": "Romanche",
+      "aliases": [
+        "rm",
+        "roh",
+        "Romansh",
+        "Romanche"
+      ]
+    },
+    {
+      "id": "rom",
+      "name": "Romaní",
+      "aliases": [
+        "rom",
+        "Romany",
+        "Romaní"
+      ]
+    },
+    {
+      "id": "ron",
+      "name": "Rumano",
+      "aliases": [
+        "ro",
+        "ron",
+        "rum",
+        "Romanian",
+        "Rumano"
+      ]
+    },
+    {
+      "id": "rus",
+      "name": "Ruso",
+      "aliases": [
+        "ru",
+        "rus",
+        "Russian",
+        "Ruso",
+        "ruso",
+        "russian"
+      ]
+    },
+    {
+      "id": "sal",
+      "name": "Salishan, lenguas",
+      "aliases": [
+        "sal",
+        "Salishan languages",
+        "Salishan, lenguas"
+      ]
+    },
+    {
+      "id": "sam",
+      "name": "Samaritano Arameo",
+      "aliases": [
+        "sam",
+        "Samaritan Aramaic",
+        "Samaritano Arameo"
+      ]
+    },
+    {
+      "id": "sme",
+      "name": "Sami del Norte",
+      "aliases": [
+        "se",
+        "sme",
+        "Northern Sami",
+        "Sami del Norte"
+      ]
+    },
+    {
+      "id": "sma",
+      "name": "Sami del Sur",
+      "aliases": [
+        "sma",
+        "Southern Sami",
+        "Sami del Sur"
+      ]
+    },
+    {
+      "id": "smn",
+      "name": "Sami Inari",
+      "aliases": [
+        "smn",
+        "Inari Sami",
+        "Sami Inari"
+      ]
+    },
+    {
+      "id": "smj",
+      "name": "Sami Lule",
+      "aliases": [
+        "smj",
+        "Lule Sami",
+        "Sami Lule"
+      ]
+    },
+    {
+      "id": "sms",
+      "name": "Sami Skolt",
+      "aliases": [
+        "sms",
+        "Skolt Sami",
+        "Sami Skolt"
+      ]
+    },
+    {
+      "id": "smo",
+      "name": "Samoano",
+      "aliases": [
+        "sm",
+        "smo",
+        "Samoan",
+        "Samoano"
+      ]
+    },
+    {
+      "id": "sad",
+      "name": "Sandawe",
+      "aliases": [
+        "sad",
+        "Sandawe"
+      ]
+    },
+    {
+      "id": "sag",
+      "name": "Sango",
+      "aliases": [
+        "sg",
+        "sag",
+        "Sango"
+      ]
+    },
+    {
+      "id": "sat",
+      "name": "Santali",
+      "aliases": [
+        "sat",
+        "Santali"
+      ]
+    },
+    {
+      "id": "srd",
+      "name": "Sardo",
+      "aliases": [
+        "sc",
+        "srd",
+        "Sardinian",
+        "Sardo"
+      ]
+    },
+    {
+      "id": "sas",
+      "name": "Sasak",
+      "aliases": [
+        "sas",
+        "Sasak"
+      ]
+    },
+    {
+      "id": "sel",
+      "name": "Selkup",
+      "aliases": [
+        "sel",
+        "Selkup"
+      ]
+    },
+    {
+      "id": "srp",
+      "name": "Serbio",
+      "aliases": [
+        "sr",
+        "srp",
+        "Serbian",
+        "Serbio"
+      ]
+    },
+    {
+      "id": "hsb",
+      "name": "Serbio Alta Edad Media",
+      "aliases": [
+        "hsb",
+        "Upper Sorbian",
+        "Serbio Alta Edad Media"
+      ]
+    },
+    {
+      "id": "dsb",
+      "name": "Serbio Baja Edad Media",
+      "aliases": [
+        "dsb",
+        "Lower Sorbian",
+        "Serbio Baja Edad Media"
+      ]
+    },
+    {
+      "id": "srr",
+      "name": "Serer",
+      "aliases": [
+        "srr",
+        "Serer"
+      ]
+    },
+    {
+      "id": "tsn",
+      "name": "Setchwana",
+      "aliases": [
+        "tn",
+        "tsn",
+        "Tswana",
+        "Setchwana"
+      ]
+    },
+    {
+      "id": "shn",
+      "name": "Shan",
+      "aliases": [
+        "shn",
+        "Shan"
+      ]
+    },
+    {
+      "id": "sna",
+      "name": "Shona",
+      "aliases": [
+        "sn",
+        "sna",
+        "Shona"
+      ]
+    },
+    {
+      "id": "scn",
+      "name": "Siciliano",
+      "aliases": [
+        "scn",
+        "Sicilian",
+        "Siciliano"
+      ]
+    },
+    {
+      "id": "sid",
+      "name": "Sidamo",
+      "aliases": [
+        "sid",
+        "Sidamo"
+      ]
+    },
+    {
+      "id": "sgn",
+      "name": "Signos, lenguas de",
+      "aliases": [
+        "sgn",
+        "Sign Languages",
+        "Signos, lenguas de"
+      ]
+    },
+    {
+      "id": "bla",
+      "name": "Siksika",
+      "aliases": [
+        "bla",
+        "Siksika"
+      ]
+    },
+    {
+      "id": "zxx",
+      "name": "Sin contenido lingüístico",
+      "aliases": [
+        "zxx",
+        "No linguistic content",
+        "Sin contenido lingüístico"
+      ]
+    },
+    {
+      "id": "snd",
+      "name": "Sindhi",
+      "aliases": [
+        "sd",
+        "snd",
+        "Sindhi"
+      ]
+    },
+    {
+      "id": "sin",
+      "name": "Singala",
+      "aliases": [
+        "si",
+        "sin",
+        "Sinhala",
+        "Singala"
+      ]
+    },
+    {
+      "id": "sio",
+      "name": "Siouan, lenguas",
+      "aliases": [
+        "sio",
+        "Siouan languages",
+        "Siouan, lenguas"
+      ]
+    },
+    {
+      "id": "syr",
+      "name": "Siriaco",
+      "aliases": [
+        "syr",
+        "Syriac",
+        "Siriaco"
+      ]
+    },
+    {
+      "id": "syc",
+      "name": "Sirio clásico",
+      "aliases": [
+        "syc",
+        "Classical Syriac",
+        "Sirio clásico"
+      ]
+    },
+    {
+      "id": "ssw",
+      "name": "Siswati",
+      "aliases": [
+        "ss",
+        "ssw",
+        "Swati",
+        "Siswati"
+      ]
+    },
+    {
+      "id": "sog",
+      "name": "Sogdian",
+      "aliases": [
+        "sog",
+        "Sogdian"
+      ]
+    },
+    {
+      "id": "som",
+      "name": "Somalí",
+      "aliases": [
+        "so",
+        "som",
+        "Somali",
+        "Somalí"
+      ]
+    },
+    {
+      "id": "sun",
+      "name": "Sondanés",
+      "aliases": [
+        "su",
+        "sun",
+        "Sundanese",
+        "Sondanés"
+      ]
+    },
+    {
+      "id": "son",
+      "name": "Songhay, lenguas",
+      "aliases": [
+        "son",
+        "Songhai languages",
+        "Songhay, lenguas"
+      ]
+    },
+    {
+      "id": "snk",
+      "name": "Soninke",
+      "aliases": [
+        "snk",
+        "Soninke"
+      ]
+    },
+    {
+      "id": "wen",
+      "name": "Sorabianas, lenguas",
+      "aliases": [
+        "wen",
+        "Sorbian languages",
+        "Sorabianas, lenguas"
+      ]
+    },
+    {
+      "id": "sot",
+      "name": "Sotho del Sur",
+      "aliases": [
+        "st",
+        "sot",
+        "Sotho, Southern",
+        "Sotho del Sur"
+      ]
+    },
+    {
+      "id": "srn",
+      "name": "Sranan Tongo",
+      "aliases": [
+        "srn",
+        "Sranan Tongo"
+      ]
+    },
+    {
+      "id": "swe",
+      "name": "Sueco",
+      "aliases": [
+        "sv",
+        "swe",
+        "Swedish",
+        "Sueco"
+      ]
+    },
+    {
+      "id": "suk",
+      "name": "Sukuma",
+      "aliases": [
+        "suk",
+        "Sukuma"
+      ]
+    },
+    {
+      "id": "sux",
+      "name": "Sumerio",
+      "aliases": [
+        "sux",
+        "Sumerian",
+        "Sumerio"
+      ]
+    },
+    {
+      "id": "sus",
+      "name": "Susu",
+      "aliases": [
+        "sus",
+        "Susu"
+      ]
+    },
+    {
+      "id": "swa",
+      "name": "Swahili",
+      "aliases": [
+        "sw",
+        "swa",
+        "Swahili"
+      ]
+    },
+    {
+      "id": "san",
+      "name": "Sánscrito",
+      "aliases": [
+        "sa",
+        "san",
+        "Sanskrit",
+        "Sánscrito"
+      ]
+    },
+    {
+      "id": "tgl",
+      "name": "Tagalo",
+      "aliases": [
+        "tl",
+        "tgl",
+        "Tagalog",
+        "Tagalo"
+      ]
+    },
+    {
+      "id": "tah",
+      "name": "Tahitiano",
+      "aliases": [
+        "ty",
+        "tah",
+        "Tahitian",
+        "Tahitiano"
+      ]
+    },
+    {
+      "id": "tha",
+      "name": "Tailandés",
+      "aliases": [
+        "th",
+        "tha",
+        "Thai",
+        "Tailandés"
+      ]
+    },
+    {
+      "id": "tgk",
+      "name": "Tajiko",
+      "aliases": [
+        "tg",
+        "tgk",
+        "Tajik",
+        "Tajiko"
+      ]
+    },
+    {
+      "id": "tmh",
+      "name": "Tamashek",
+      "aliases": [
+        "tmh",
+        "Tamashek"
+      ]
+    },
+    {
+      "id": "zgh",
+      "name": "Tamazight de Marruecos central",
+      "aliases": [
+        "zgh",
+        "Standard Moroccan Tamazight",
+        "Tamazight de Marruecos central"
+      ]
+    },
+    {
+      "id": "tam",
+      "name": "Tamil",
+      "aliases": [
+        "ta",
+        "tam",
+        "Tamil"
+      ]
+    },
+    {
+      "id": "tat",
+      "name": "Tataro",
+      "aliases": [
+        "tt",
+        "tat",
+        "Tatar",
+        "Tataro"
+      ]
+    },
+    {
+      "id": "twi",
+      "name": "Tchi",
+      "aliases": [
+        "tw",
+        "twi",
+        "Twi",
+        "Tchi"
+      ]
+    },
+    {
+      "id": "tel",
+      "name": "Telugu",
+      "aliases": [
+        "te",
+        "tel",
+        "Telugu"
+      ]
+    },
+    {
+      "id": "ter",
+      "name": "Tereno",
+      "aliases": [
+        "ter",
+        "Tereno"
+      ]
+    },
+    {
+      "id": "tet",
+      "name": "Tetum",
+      "aliases": [
+        "tet",
+        "Tetum"
+      ]
+    },
+    {
+      "id": "bod",
+      "name": "Tibetano",
+      "aliases": [
+        "bo",
+        "bod",
+        "tib",
+        "Tibetan",
+        "Tibetano"
+      ]
+    },
+    {
+      "id": "tig",
+      "name": "Tigre",
+      "aliases": [
+        "tig",
+        "Tigre"
+      ]
+    },
+    {
+      "id": "tir",
+      "name": "Tigrinya",
+      "aliases": [
+        "ti",
+        "tir",
+        "Tigrinya"
+      ]
+    },
+    {
+      "id": "tem",
+      "name": "Timne",
+      "aliases": [
+        "tem",
+        "Timne"
+      ]
+    },
+    {
+      "id": "tiv",
+      "name": "Tiv",
+      "aliases": [
+        "tiv",
+        "Tiv"
+      ]
+    },
+    {
+      "id": "tli",
+      "name": "Tlingit",
+      "aliases": [
+        "tli",
+        "Tlingit"
+      ]
+    },
+    {
+      "id": "tpi",
+      "name": "Tok Pisin",
+      "aliases": [
+        "tpi",
+        "Tok Pisin"
+      ]
+    },
+    {
+      "id": "tkl",
+      "name": "Tokelau",
+      "aliases": [
+        "tkl",
+        "Tokelau"
+      ]
+    },
+    {
+      "id": "ton",
+      "name": "Tonga (Islas Tonga)",
+      "aliases": [
+        "to",
+        "ton",
+        "Tonga (Tonga Islands)",
+        "Tonga (Islas Tonga)"
+      ]
+    },
+    {
+      "id": "tog",
+      "name": "Tonga (Nyasa)",
+      "aliases": [
+        "tog",
+        "Tonga (Nyasa)"
+      ]
+    },
+    {
+      "id": "tsi",
+      "name": "Tsimshian",
+      "aliases": [
+        "tsi",
+        "Tsimshian"
+      ]
+    },
+    {
+      "id": "tso",
+      "name": "Tsonga",
+      "aliases": [
+        "ts",
+        "tso",
+        "Tsonga"
+      ]
+    },
+    {
+      "id": "tum",
+      "name": "Tumbuka",
+      "aliases": [
+        "tum",
+        "Tumbuka"
+      ]
+    },
+    {
+      "id": "tup",
+      "name": "Tupi, lenguas",
+      "aliases": [
+        "tup",
+        "Tupi languages",
+        "Tupi, lenguas"
+      ]
+    },
+    {
+      "id": "tur",
+      "name": "Turco",
+      "aliases": [
+        "tr",
+        "tur",
+        "Turkish",
+        "Turco"
+      ]
+    },
+    {
+      "id": "ota",
+      "name": "Turco otomano (1500-1928)",
+      "aliases": [
+        "ota",
+        "Turkish, Ottoman (1500-1928)",
+        "Turco otomano (1500-1928)"
+      ]
+    },
+    {
+      "id": "tuk",
+      "name": "Turkmeno",
+      "aliases": [
+        "tk",
+        "tuk",
+        "Turkmen",
+        "Turkmeno"
+      ]
+    },
+    {
+      "id": "tvl",
+      "name": "Tuvalu",
+      "aliases": [
+        "tvl",
+        "Tuvalu"
+      ]
+    },
+    {
+      "id": "tyv",
+      "name": "Tuvinian",
+      "aliases": [
+        "tyv",
+        "Tuvinian"
+      ]
+    },
+    {
+      "id": "crh",
+      "name": "Tártaro de Crimea",
+      "aliases": [
+        "crh",
+        "Crimean Tatar",
+        "Tártaro de Crimea"
+      ]
+    },
+    {
+      "id": "udm",
+      "name": "Udmurto",
+      "aliases": [
+        "udm",
+        "Udmurt",
+        "Udmurto"
+      ]
+    },
+    {
+      "id": "uga",
+      "name": "Ugarítico",
+      "aliases": [
+        "uga",
+        "Ugaritic",
+        "Ugarítico"
+      ]
+    },
+    {
+      "id": "uig",
+      "name": "Uiguro",
+      "aliases": [
+        "ug",
+        "uig",
+        "Uighur",
+        "Uiguro"
+      ]
+    },
+    {
+      "id": "ukr",
+      "name": "Ukranio",
+      "aliases": [
+        "uk",
+        "ukr",
+        "Ukrainian",
+        "Ukranio"
+      ]
+    },
+    {
+      "id": "umb",
+      "name": "Umbundu",
+      "aliases": [
+        "umb",
+        "Umbundu"
+      ]
+    },
+    {
+      "id": "urd",
+      "name": "Urdu",
+      "aliases": [
+        "ur",
+        "urd",
+        "Urdu"
+      ]
+    },
+    {
+      "id": "uzb",
+      "name": "Uzbeko",
+      "aliases": [
+        "uz",
+        "uzb",
+        "Uzbek",
+        "Uzbeko"
+      ]
+    },
+    {
+      "id": "vai",
+      "name": "Vai",
+      "aliases": [
+        "vai",
+        "Vai"
+      ]
+    },
+    {
+      "id": "rup",
+      "name": "Valaco",
+      "aliases": [
+        "rup",
+        "Aromanian",
+        "Valaco"
+      ]
+    },
+    {
+      "id": "wln",
+      "name": "valón",
+      "aliases": [
+        "wa",
+        "wln",
+        "Walloon",
+        "valón"
+      ]
+    },
+    {
+      "id": "eus",
+      "name": "Vasco",
+      "aliases": [
+        "eu",
+        "eus",
+        "baq",
+        "Basque",
+        "Vasco",
+        "vasco",
+        "euskera",
+        "basque"
+      ]
+    },
+    {
+      "id": "ven",
+      "name": "Venda",
+      "aliases": [
+        "ve",
+        "ven",
+        "Venda"
+      ]
+    },
+    {
+      "id": "vie",
+      "name": "Vietnamita",
+      "aliases": [
+        "vi",
+        "vie",
+        "Vietnamese",
+        "Vietnamita"
+      ]
+    },
+    {
+      "id": "vol",
+      "name": "Volapük",
+      "aliases": [
+        "vo",
+        "vol",
+        "Volapük"
+      ]
+    },
+    {
+      "id": "vot",
+      "name": "Votic",
+      "aliases": [
+        "vot",
+        "Votic"
+      ]
+    },
+    {
+      "id": "wak",
+      "name": "Wakashas, lenguas",
+      "aliases": [
+        "wak",
+        "Wakashan languages",
+        "Wakashas, lenguas"
+      ]
+    },
+    {
+      "id": "war",
+      "name": "Waray",
+      "aliases": [
+        "war",
+        "Waray"
+      ]
+    },
+    {
+      "id": "was",
+      "name": "Washo",
+      "aliases": [
+        "was",
+        "Washo"
+      ]
+    },
+    {
+      "id": "wal",
+      "name": "Wolaita, Wolayitigna, Wolaitatuwa",
+      "aliases": [
+        "wal",
+        "Walamo",
+        "Wolaita, Wolayitigna, Wolaitatuwa"
+      ]
+    },
+    {
+      "id": "wol",
+      "name": "Wolof",
+      "aliases": [
+        "wo",
+        "wol",
+        "Wolof"
+      ]
+    },
+    {
+      "id": "xho",
+      "name": "Xhosa",
+      "aliases": [
+        "xh",
+        "xho",
+        "Xhosa"
+      ]
+    },
+    {
+      "id": "sah",
+      "name": "Yakut",
+      "aliases": [
+        "sah",
+        "Yakut"
+      ]
+    },
+    {
+      "id": "yao",
+      "name": "Yao",
+      "aliases": [
+        "yao",
+        "Yao"
+      ]
+    },
+    {
+      "id": "yap",
+      "name": "Yapese",
+      "aliases": [
+        "yap",
+        "Yapese"
+      ]
+    },
+    {
+      "id": "iii",
+      "name": "Yi Sinchuán",
+      "aliases": [
+        "ii",
+        "iii",
+        "Sichuan Yi",
+        "Yi Sinchuán"
+      ]
+    },
+    {
+      "id": "yid",
+      "name": "Yidish",
+      "aliases": [
+        "yi",
+        "yid",
+        "Yiddish",
+        "Yidish"
+      ]
+    },
+    {
+      "id": "yor",
+      "name": "Yoruba",
+      "aliases": [
+        "yo",
+        "yor",
+        "Yoruba"
+      ]
+    },
+    {
+      "id": "ypk",
+      "name": "Yupik, lenguas",
+      "aliases": [
+        "ypk",
+        "Yupik languages",
+        "Yupik, lenguas"
+      ]
+    },
+    {
+      "id": "znd",
+      "name": "Zande, lenguas",
+      "aliases": [
+        "znd",
+        "Zande languages",
+        "Zande, lenguas"
+      ]
+    },
+    {
+      "id": "zap",
+      "name": "Zapoteca",
+      "aliases": [
+        "zap",
+        "Zapotec",
+        "Zapoteca"
+      ]
+    },
+    {
+      "id": "zza",
+      "name": "Zaza",
+      "aliases": [
+        "zza",
+        "Zaza"
+      ]
+    },
+    {
+      "id": "zen",
+      "name": "Zenaga",
+      "aliases": [
+        "zen",
+        "Zenaga"
+      ]
+    },
+    {
+      "id": "zha",
+      "name": "Zhuang",
+      "aliases": [
+        "za",
+        "zha",
+        "Zhuang"
+      ]
+    },
+    {
+      "id": "zul",
+      "name": "Zulu",
+      "aliases": [
+        "zu",
+        "zul",
+        "Zulu"
+      ]
+    },
+    {
+      "id": "zun",
+      "name": "Zuni",
+      "aliases": [
+        "zun",
+        "Zuni"
+      ]
+    },
+    {
+      "id": "amh",
+      "name": "Ámárico",
+      "aliases": [
+        "am",
+        "amh",
+        "Amharic",
+        "Ámárico"
+      ]
+    },
+    {
+      "id": "ara",
+      "name": "Árábe",
+      "aliases": [
+        "ar",
+        "ara",
+        "Arabic",
+        "Árábe"
+      ]
+    }
+  ]
+}

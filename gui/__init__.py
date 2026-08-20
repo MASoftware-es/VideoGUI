@@ -1,0 +1,2 @@
+"""Interfaz gráfica de VideoGUI."""
+

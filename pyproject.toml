@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "videogui"
+version = "0.1.0"
+description = "Interfaz Qt para inspeccionar y convertir archivos de vídeo"
+readme = "leeme.md"
+requires-python = ">=3.10"
+dependencies = ["PySide6>=6.6,<7"]
+
+[project.gui-scripts]
+videogui = "gui.app:main"
+
+[tool.setuptools]
+packages = ["gui", "gui.core", "gui.i18n", "gui.themes"]
+
+[tool.setuptools.package-data]
+gui = ["assets/*.png", "assets/*.ogg", "data/*.json", "i18n/*/*.json", "themes/*/*.json", "themes/*/*.qss"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
