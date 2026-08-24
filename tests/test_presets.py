@@ -37,3 +37,12 @@ def test_video_copy_is_saved_in_preset(tmp_path):
     path = tmp_path / "presets.json"
     save_presets(path, [Preset("Sin recodificar", video={"copy_video": True})])
     assert load_presets(path)[0].video["copy_video"] is True
+
+
+def test_only_default_video_track_is_saved_and_old_presets_default_to_disabled(tmp_path):
+    path = tmp_path / "presets.json"
+    save_presets(path, [Preset("Principal", only_default_video_track=True)])
+    assert load_presets(path)[0].only_default_video_track is True
+
+    path.write_text('{"presets": [{"name": "Antiguo"}]}', encoding="utf-8")
+    assert load_presets(path)[0].only_default_video_track is False

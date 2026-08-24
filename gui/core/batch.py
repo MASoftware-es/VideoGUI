@@ -113,6 +113,8 @@ def configs_for_preset(media: MediaInfo, preset: Preset, languages: list[TrackLa
         if rule["enabled"]:
             recognized = recognize_language(config.track.language, config.track.title, languages)
             included = bool(rule["keep_unknown"]) if recognized is None else recognized.identifier in set(rule["language_ids"])
+        if config.track.kind == "video" and preset.only_default_video_track:
+            included = included and config.track.disposition_default
         config.included = included and (preset.keep_subtitles if config.track.kind == "subtitle" else True)
     return configs
 
@@ -164,6 +166,18 @@ def validate_batch_item(
     if preset is None:
         raise ValueError(t("batch_validation_missing_preset").format(name=item.preset_name))
     media = probe_media(Path(item.source), translate)
+    return validate_batch_media(item, media, presets, languages, settings, reserved, translate)
+
+
+def validate_batch_media(
+    item: BatchItem, media: MediaInfo, presets: list[Preset], languages: list[TrackLanguage],
+    settings: BatchSettings, reserved: set[Path], translate=None,
+) -> tuple[MediaInfo, list[TrackConfig], Path]:
+    """Valida un elemento cuyo análisis ffprobe ya se ha realizado."""
+    t = translate or (lambda key: key)
+    preset = find_preset(presets, item.preset_name)
+    if preset is None:
+        raise ValueError(t("batch_validation_missing_preset").format(name=item.preset_name))
     configs = configs_for_preset(media, preset, languages)
     empty_filters = empty_language_filter_kinds(configs, preset)
     if empty_filters:

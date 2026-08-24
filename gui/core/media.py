@@ -7,6 +7,8 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+from gui.config import PROBE_TIMEOUT_SECONDS
+
 
 SUPPORTED_EXTENSIONS = {".avi", ".mkv", ".mp4"}
 SPANISH_CODES = {"spa", "es", "esp"}
@@ -89,13 +91,24 @@ def probe_media(path: Path, translate=None) -> MediaInfo:
         "-of", "json", str(path),
     ]
     try:
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
-        data = json.loads(result.stdout)
+        result = subprocess.run(command, check=True, capture_output=True, text=True, timeout=PROBE_TIMEOUT_SECONDS)
+        return media_from_probe_output(path, result.stdout, translate)
     except FileNotFoundError as exc:
         raise MediaError(message("media_ffprobe_missing")) from exc
-    except (subprocess.CalledProcessError, json.JSONDecodeError) as exc:
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
         detail = getattr(exc, "stderr", "") or str(exc)
         raise MediaError(message("media_probe_failed", detail=detail.strip())) from exc
+
+def media_from_probe_output(path: Path, output: str, translate=None) -> MediaInfo:
+    """Construye la información multimedia a partir del JSON producido por ffprobe."""
+    def message(key: str, **values) -> str:
+        return (translate(key) if translate else key).format(**values)
+
+    path = path.expanduser().resolve()
+    try:
+        data = json.loads(output)
+    except json.JSONDecodeError as exc:
+        raise MediaError(message("media_probe_failed", detail=str(exc))) from exc
 
     streams = data.get("streams", [])
     video = next((stream for stream in streams if stream.get("codec_type") == "video"), None)
@@ -161,12 +174,12 @@ def probe_external_tracks(path: Path, kind: str, translate=None) -> tuple[MediaT
     try:
         result = subprocess.run(
             ["ffprobe", "-v", "error", "-show_streams", "-of", "json", str(path)],
-            check=True, capture_output=True, text=True,
+            check=True, capture_output=True, text=True, timeout=PROBE_TIMEOUT_SECONDS,
         )
         streams = json.loads(result.stdout).get("streams", [])
     except FileNotFoundError as exc:
         raise MediaError(message("media_ffprobe_missing")) from exc
-    except (subprocess.CalledProcessError, json.JSONDecodeError) as exc:
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
         raise MediaError(message("media_external_probe_failed", detail=exc)) from exc
 
     result_tracks = []

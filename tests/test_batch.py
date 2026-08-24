@@ -60,6 +60,19 @@ def test_batch_preset_can_copy_video_without_reencoding():
     assert configs[0].copy_video is True
 
 
+def test_batch_preset_can_keep_only_the_default_video_track():
+    source = Path("movie.mkv")
+    videos = (
+        MediaTrack(0, "video", "h264", "", "Alternative", source),
+        MediaTrack(1, "video", "h264", "", "Main", source, disposition_default=True),
+    )
+    media = MediaInfo(source, 60, 1920, 1080, "h264", videos, (), ())
+
+    configs = configs_for_preset(media, Preset("Principal", only_default_video_track=True), [])
+
+    assert [config.included for config in configs] == [False, True]
+
+
 def test_active_language_filter_requires_a_match_for_each_track_kind():
     source = Path("movie.mkv")
     media = MediaInfo(

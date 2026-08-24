@@ -53,7 +53,7 @@
     "create_preset": "Create preset", "edit_preset": "Edit preset", "duplicate_preset": "Duplicate preset", "duplicate_preset_name": "New name for a copy of “{name}”", "preset_name": "Name", "create": "Create", "edit": "Edit", "duplicate": "Duplicate", "delete": "Delete", "save_preset": "Save",
     "delete_preset": "Delete preset", "delete_preset_confirm": "Do you want to delete the preset \u201c{name}\u201d?", "preset_name_required": "The preset must have a name.",
     "preset_name_exists": "A preset with that name already exists.", "preset_save_error": "The presets could not be saved:\n{error}",
-    "keep_subtitles": "Keep subtitles", "custom": "Custom…", "copy_original": "Copy original", "about": "About…", "developed_by": "Developed by:",
+    "keep_subtitles": "Keep subtitles", "only_default_video_track": "Include only the default track", "custom": "Custom…", "copy_original": "Copy original", "about": "About…", "developed_by": "Developed by:",
     "filter_track_languages": "Keep only the following languages", "keep_unknown_languages": "Keep tracks with an unknown language",
     "select_all": "Include all", "clear_all": "Clear all", "manage_track_languages": "Manage track languages…",
     "create_track_language": "Create track language", "edit_track_language": "Edit track language", "track_language_name": "Name",

@@ -53,7 +53,7 @@
     "create_preset": "Crear preajuste", "edit_preset": "Editar preajuste", "duplicate_preset": "Duplicar preajuste", "duplicate_preset_name": "Nuevo nombre para una copia de «{name}»", "preset_name": "Nombre", "create": "Crear", "edit": "Editar", "duplicate": "Duplicar", "delete": "Borrar", "save_preset": "Guardar",
     "delete_preset": "Borrar preajuste", "delete_preset_confirm": "¿Quieres borrar el preajuste «{name}»?", "preset_name_required": "El preajuste debe tener un nombre.",
     "preset_name_exists": "Ya existe un preajuste con ese nombre.", "preset_save_error": "No se pudieron guardar los preajustes:\n{error}",
-    "keep_subtitles": "Mantener subtítulos", "custom": "Personalizada…", "copy_original": "Copiar original", "about": "Acerca de…", "developed_by": "Desarrollado por:",
+    "keep_subtitles": "Mantener subtítulos", "only_default_video_track": "Incluir solo pista predeterminada", "custom": "Personalizada…", "copy_original": "Copiar original", "about": "Acerca de…", "developed_by": "Desarrollado por:",
     "filter_track_languages": "Conservar solo los siguientes idiomas", "keep_unknown_languages": "Mantener pistas con idioma desconocido",
     "select_all": "Incluir todos", "clear_all": "Quitar todos", "manage_track_languages": "Gestionar idiomas de pistas…",
     "create_track_language": "Crear idioma de pista", "edit_track_language": "Editar idioma de pista", "track_language_name": "Nombre",

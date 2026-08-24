@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import subprocess
 
+from gui.config import PROBE_TIMEOUT_SECONDS
 from gui.core.media import AudioTrack
 from gui.core.project import RESOLUTIONS, TrackConfig
 
@@ -26,13 +27,13 @@ def available_encoders() -> set[str]:
         try:
             output = subprocess.run(
                 ["ffmpeg", "-hide_banner", "-encoders"], check=True,
-                capture_output=True, text=True,
+                capture_output=True, text=True, timeout=PROBE_TIMEOUT_SECONDS,
             ).stdout
             _ENCODER_CACHE = {
                 line.split()[1] for line in output.splitlines()
                 if len(line.split()) >= 2 and line.startswith((" V", " A", " S"))
             }
-        except (FileNotFoundError, subprocess.CalledProcessError):
+        except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
             _ENCODER_CACHE = set()
     return _ENCODER_CACHE
 

@@ -16,10 +16,11 @@ from PySide6.QtWidgets import (
 from gui.core.batch import (
     CANCELLED, CHECKING, COMPLETED, ERROR, PENDING, PROCESSING, VALID,
     BatchItem, BatchSettings, find_preset, load_batch_job,
-    save_batch_job, validate_batch_item,
+    save_batch_job, validate_batch_item, validate_batch_media,
 )
+from gui.config import PROBE_TIMEOUT_SECONDS
 from gui.core.ffmpeg import EncodingOptions, aligned_dimension, build_project_command, required_dimension_alignment
-from gui.core.media import MediaError, MediaTrack, probe_external_tracks, probe_media
+from gui.core.media import MediaError, MediaTrack, SUPPORTED_EXTENSIONS, media_from_probe_output, probe_external_tracks, probe_media
 from gui.core.project import TrackConfig, container_warnings
 from gui.i18n import discover_languages, text
 from gui.presets import AUDIO_DEFAULTS, VIDEO_DEFAULTS, Preset, load_presets, normalized_name, save_presets
@@ -461,9 +462,10 @@ class PresetEditorDialog(QDialog):
 
     def _build_video_tab(self) -> None:
         self.copy_video = QCheckBox(self.owner.t("copy_video"))
+        self.only_default_video_track = QCheckBox(self.owner.t("only_default_video_track"))
         self.video_settings = VideoSettingsWidget(self.owner.t)
         self.copy_video.toggled.connect(lambda checked: self.video_settings.set_context(True, checked))
-        layout = QVBoxLayout(self.video_tab); layout.addWidget(self.copy_video); layout.addWidget(self.video_settings)
+        layout = QVBoxLayout(self.video_tab); layout.addWidget(self.copy_video); layout.addWidget(self.only_default_video_track); layout.addWidget(self.video_settings)
         self._add_language_filter("video", layout)
 
     def _build_audio_tab(self) -> None:
@@ -487,6 +489,7 @@ class PresetEditorDialog(QDialog):
     def _load_values(self, preset: Preset) -> None:
         video, audio = preset.video, preset.audio
         self.copy_video.setChecked(bool(video.get("copy_video", False))); self.video_settings.load_values(video)
+        self.only_default_video_track.setChecked(preset.only_default_video_track)
         self.video_settings.set_context(True, self.copy_video.isChecked())
         self.audio_settings.load_values(audio)
         self.keep_subtitles.setChecked(preset.keep_subtitles)
@@ -496,7 +499,10 @@ class PresetEditorDialog(QDialog):
     def result_preset(self) -> Preset:
         video = self.video_settings.values(); video["copy_video"] = self.copy_video.isChecked()
         filters = {kind: language_filter.value() for kind, language_filter in self.language_filters.items()}
-        return Preset(self.name_edit.text().strip(), video, self.audio_settings.values(), self.keep_subtitles.isChecked(), filters)
+        return Preset(
+            self.name_edit.text().strip(), video, self.audio_settings.values(),
+            self.keep_subtitles.isChecked(), filters, self.only_default_video_track.isChecked(),
+        )
 
     def accept(self) -> None:
         name = self.name_edit.text().strip(); key = normalized_name(name)
@@ -712,6 +718,11 @@ class BatchWidget(QWidget):
         super().__init__(); self.owner = owner
         self.items: list[BatchItem] = []
         self.process: QProcess | None = None; self.busy = False
+        self.test_process: QProcess | None = None; self.testing = False
+        self.test_queue: list[BatchItem] = []; self.test_reserved: set[Path] = set()
+        self.test_current: BatchItem | None = None; self.test_done = 0; self.test_total = 0
+        self.test_timed_out = False
+        self.test_timer = QTimer(self); self.test_timer.setSingleShot(True); self.test_timer.timeout.connect(self._test_timeout)
         self.current_item: BatchItem | None = None
         self.current_media = None; self.current_output: Path | None = None
         self.queue: list[BatchItem] = []; self.queue_reserved: set[Path] = set()
@@ -740,7 +751,7 @@ class BatchWidget(QWidget):
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         header = self.table.horizontalHeader(); header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents); header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents); header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents); header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed); header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         self.table.itemSelectionChanged.connect(self._update_selection_buttons)
 
         self.select_files_button, self.load_button, self.save_button = QPushButton(), QPushButton(), QPushButton()
@@ -786,9 +797,12 @@ class BatchWidget(QWidget):
         self.select_files_button.setText(t("batch_select_files")); self.load_button.setText(t("batch_load_job")); self.save_button.setText(t("batch_save_job"))
         self.remove_button.setText(t("batch_remove_files")); self.up_button.setToolTip(t("up")); self.down_button.setToolTip(t("down")); self.retry_button.setText(t("batch_retry"))
         self.source_folder_button.setText(t("batch_source_folder")); self.destination_folder_button.setText(t("batch_destination_folder"))
-        self.test_button.setText(t("batch_test")); self.process_button.setText(t("stop") if self.busy else t("batch_process"))
+        self.test_button.setText(t("cancel") if self.testing else t("batch_test")); self.process_button.setText(t("stop") if self.busy and not self.testing else t("batch_process"))
         self.file_progress_label.setText(t("batch_file_progress")); self.total_progress_label.setText(t("batch_total_progress"))
         self.table.setHorizontalHeaderLabels((t("batch_source_file"), t("preset"), t("batch_status"), t("batch_details")))
+        status_texts = [t("batch_status"), *(t(key) for key in self.STATUS_KEYS.values())]
+        status_width = max(self.table.fontMetrics().horizontalAdvance(value) for value in status_texts) + 32
+        self.table.horizontalHeader().resizeSection(2, status_width)
         for value, key in ((".mkv", "format_mkv"), (".mp4", "format_mp4"), (".avi", "format_avi")):
             self.output_format.setItemText(self.output_format.findData(value), t(key))
         self.refresh_presets(); self.refresh_table(); self.update_summary()
@@ -1005,28 +1019,98 @@ class BatchWidget(QWidget):
             QMessageBox.critical(self, self.owner.t("error"), self.owner.t("batch_load_error").format(error=error)); return
         self.items = items; self.load_settings(settings); self.refresh_table()
 
-    def _validate_all(self) -> list[tuple[BatchItem, object, list[TrackConfig], Path]]:
-        settings = self.settings_value(); reserved = {Path(item.output_path) for item in self.items if item.status == COMPLETED and item.output_path}
-        valid = []
-        for item in self.items:
-            if item.status == COMPLETED: continue
-            item.status = CHECKING; item.error = ""; item.output_path = ""; self.refresh_table(); QApplication.processEvents()
-            try:
-                media, configs, output = validate_batch_item(item, self.owner.presets, self.owner.track_languages, settings, reserved, self.owner.t)
-                item.status = VALID; item.output_path = str(output); reserved.add(output); valid.append((item, media, configs, output))
-            except Exception as error:
-                item.status = ERROR; item.error = str(error)
-            self.refresh_table(); QApplication.processEvents()
-        return valid
-
     def test_items(self) -> None:
+        if self.testing:
+            self.cancel_testing(); return
         if not self.items: QMessageBox.warning(self, self.owner.t("error"), self.owner.t("batch_empty")); return
         if not self._require_presets(): return
+        self.testing = True
         self.set_busy(True, can_stop=False)
-        try: self._validate_all()
-        finally: self.set_busy(False)
+        self.test_button.setText(self.owner.t("cancel")); self.test_button.setEnabled(True)
+        set_button_role(self.test_button, danger=True)
+        self.test_queue = [item for item in self.items if item.status != COMPLETED]
+        self.test_reserved = {Path(item.output_path) for item in self.items if item.status == COMPLETED and item.output_path}
+        self.test_total = len(self.test_queue); self.test_done = 0
+        self.total_progress.setValue(0); self.total_progress.setFormat("%p%"); self._start_next_test()
+
+    def _update_item_row(self, item: BatchItem) -> None:
+        try: row = next(index for index, candidate in enumerate(self.items) if candidate is item)
+        except StopIteration: return
+        status = self.table.item(row, 2)
+        if status: status.setText(self.owner.t(self.STATUS_KEYS[item.status]))
+        details = self.table.cellWidget(row, 3)
+        if details: details.setEnabled(bool(item.error or item.output_path))
         self.update_summary()
-        if any(item.status == ERROR for item in self.items):
+
+    def _start_next_test(self) -> None:
+        if not self.testing: return
+        if not self.test_queue:
+            self._finish_testing(); return
+        item = self.test_queue.pop(0); self.test_current = item
+        item.status = CHECKING; item.error = ""; item.output_path = ""; self._update_item_row(item)
+        path = Path(item.source).expanduser().resolve()
+        if path.suffix.lower() not in SUPPORTED_EXTENSIONS:
+            self._complete_test_error(self.owner.t("media_unsupported_format")); return
+        if not path.is_file():
+            self._complete_test_error(self.owner.t("media_file_missing").format(path=path)); return
+        process = QProcess(self); self.test_process = process; self.test_timed_out = False
+        process.setProgram("ffprobe")
+        process.setArguments(["-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)])
+        process.finished.connect(self._test_finished); process.errorOccurred.connect(self._test_process_error)
+        process.start(); self.test_timer.start(PROBE_TIMEOUT_SECONDS * 1000)
+
+    def _test_timeout(self) -> None:
+        if self.test_process:
+            self.test_timed_out = True; self.test_process.kill()
+
+    def _test_process_error(self, error: QProcess.ProcessError) -> None:
+        if error == QProcess.ProcessError.FailedToStart:
+            self.test_timer.stop(); self._complete_test_error(self.owner.t("media_ffprobe_missing"))
+
+    def _test_finished(self, exit_code: int, _exit_status=QProcess.ExitStatus.NormalExit) -> None:
+        if not self.testing or not self.test_current: return
+        self.test_timer.stop(); process = self.test_process; self.test_process = None
+        if self.test_timed_out:
+            detail = f"timeout ({PROBE_TIMEOUT_SECONDS} s)"
+            self._complete_test_error(self.owner.t("media_probe_failed").format(detail=detail)); return
+        stderr = bytes(process.readAllStandardError()).decode(errors="replace").strip() if process else ""
+        if exit_code != 0:
+            self._complete_test_error(self.owner.t("media_probe_failed").format(detail=stderr or f"ffprobe: {exit_code}")); return
+        try:
+            output = bytes(process.readAllStandardOutput()).decode(errors="replace") if process else ""
+            media = media_from_probe_output(Path(self.test_current.source), output, self.owner.t)
+            _media, _configs, destination = validate_batch_media(
+                self.test_current, media, self.owner.presets, self.owner.track_languages,
+                self.settings_value(), self.test_reserved, self.owner.t,
+            )
+            self.test_current.status = VALID; self.test_current.output_path = str(destination); self.test_reserved.add(destination)
+        except Exception as error:
+            self.test_current.status = ERROR; self.test_current.error = str(error)
+        self._complete_test_item()
+
+    def _complete_test_error(self, message: str) -> None:
+        if not self.testing or not self.test_current: return
+        self.test_current.status = ERROR; self.test_current.error = message; self._complete_test_item()
+
+    def _complete_test_item(self) -> None:
+        if self.test_current: self._update_item_row(self.test_current)
+        self.test_done += 1
+        self.total_progress.setValue(round(self.test_done / self.test_total * 100) if self.test_total else 100)
+        self.test_current = None; QTimer.singleShot(0, self._start_next_test)
+
+    def cancel_testing(self) -> None:
+        if not self.testing: return
+        self.testing = False; self.test_timer.stop()
+        if self.test_current and self.test_current.status == CHECKING:
+            self.test_current.status = PENDING; self._update_item_row(self.test_current)
+        if self.test_process: self.test_process.kill(); self.test_process = None
+        self.test_queue.clear(); self._finish_testing(cancelled=True)
+
+    def _finish_testing(self, cancelled: bool = False) -> None:
+        self.testing = False; self.test_process = None; self.test_current = None
+        self.set_busy(False); self.test_button.setText(self.owner.t("batch_test")); set_button_role(self.test_button)
+        self.update_summary()
+        if not cancelled and any(item.status == ERROR for item in self.items):
             QMessageBox.warning(self, self.owner.t("batch_test_errors_title"), self.owner.t("batch_test_errors_message"))
 
     def start_processing(self) -> None:
@@ -1333,6 +1417,8 @@ class MainWindow(QMainWindow):
             config.copy_video = False
             for field, value in preset.video.items(): setattr(config, field, value)
             config.included, recognized = self._included_by_language_filter(config, preset)
+            if preset.only_default_video_track:
+                config.included = config.included and config.track.disposition_default
             if not recognized: unknown.append(config)
             self.save_encoding_preferences(config)
         for config in self.audio_panel.configs():
@@ -1357,7 +1443,14 @@ class MainWindow(QMainWindow):
     def update_preset_selection_from_tracks(self) -> None:
         preset = self.preset_by_name(self.selected_preset_name)
         if not preset: return
-        matches_video = all(all(getattr(config, field) == value for field, value in preset.video.items()) and config.included == self._included_by_language_filter(config, preset)[0] for config in self.video_panel.configs())
+        matches_video = all(
+            all(getattr(config, field) == value for field, value in preset.video.items())
+            and config.included == (
+                self._included_by_language_filter(config, preset)[0]
+                and (not preset.only_default_video_track or config.track.disposition_default)
+            )
+            for config in self.video_panel.configs()
+        )
         matches_audio = all(all(getattr(config, field) == value for field, value in preset.audio.items()) and config.included == self._included_by_language_filter(config, preset)[0] for config in self.audio_panel.configs())
         matches_subtitles = all(config.included == (preset.keep_subtitles and self._included_by_language_filter(config, preset)[0]) for config in self.subtitle_panel.configs())
         if not (matches_video and matches_audio and matches_subtitles):
@@ -1413,6 +1506,8 @@ class MainWindow(QMainWindow):
             config.included = preset.keep_subtitles
         if preset:
             included, _ = self._included_by_language_filter(config, preset)
+            if config.track.kind == "video" and preset.only_default_video_track:
+                included = included and config.track.disposition_default
             config.included = (preset.keep_subtitles and included) if config.track.kind == "subtitle" else included
 
     def save_encoding_preferences(self, config: TrackConfig) -> None:
@@ -1442,6 +1537,8 @@ class MainWindow(QMainWindow):
         self.move(frame.topLeft())
 
     def closeEvent(self, event: QCloseEvent) -> None:
+        if self.batch_widget.testing:
+            self.batch_widget.cancel_testing()
         if self.batch_widget.is_processing():
             self.batch_widget.stop_processing(); event.ignore(); return
         self.settings.setValue("window/geometry", self.saveGeometry())

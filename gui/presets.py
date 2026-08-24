@@ -24,6 +24,7 @@ class Preset:
     audio: dict[str, Any] = field(default_factory=lambda: dict(AUDIO_DEFAULTS))
     keep_subtitles: bool = True
     track_languages: dict[str, dict[str, Any]] = field(default_factory=dict)
+    only_default_video_track: bool = False
 
     def __post_init__(self) -> None:
         video = dict(VIDEO_DEFAULTS); video.update(self.video); self.video = video
@@ -40,7 +41,11 @@ class Preset:
         name = str(data["name"]).strip()
         if not name:
             raise ValueError("Preset name cannot be empty")
-        return cls(name, dict(data.get("video", {})), dict(data.get("audio", {})), bool(data.get("keep_subtitles", True)), dict(data.get("track_languages", {})))
+        return cls(
+            name, dict(data.get("video", {})), dict(data.get("audio", {})),
+            bool(data.get("keep_subtitles", True)), dict(data.get("track_languages", {})),
+            bool(data.get("only_default_video_track", False)),
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
