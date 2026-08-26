@@ -73,6 +73,50 @@ def test_batch_preset_can_keep_only_the_default_video_track():
     assert [config.included for config in configs] == [False, True]
 
 
+def test_only_default_video_uses_first_video_when_no_track_is_default():
+    source = Path("movie.mkv")
+    videos = (
+        MediaTrack(0, "video", "h264", "", "First", source),
+        MediaTrack(1, "video", "h264", "", "Second", source),
+    )
+    media = MediaInfo(source, 60, 1920, 1080, "h264", videos, (), ())
+    configs = configs_for_preset(media, Preset("Principal", only_default_video_track=True), [])
+    assert [config.included for config in configs] == [True, False]
+
+
+def test_only_default_track_applies_to_audio_and_subtitles_with_first_fallback():
+    source = Path("movie.mkv")
+    media = MediaInfo(
+        source, 60, 1920, 1080, "h264",
+        (MediaTrack(0, "video", "h264", "", "Video", source),),
+        (AudioTrack(1, "aac", 2, "stereo", "spa", "First"), AudioTrack(2, "aac", 2, "stereo", "eng", "Default", disposition_default=True)),
+        (MediaTrack(3, "subtitle", "subrip", "spa", "First", source), MediaTrack(4, "subtitle", "subrip", "eng", "Second", source)),
+    )
+    preset = Preset("Predeterminadas", only_default_tracks={"audio": True, "subtitle": True})
+    configs = configs_for_preset(media, preset, [])
+    assert [config.included for config in configs if config.track.kind == "audio"] == [False, True]
+    assert [config.included for config in configs if config.track.kind == "subtitle"] == [True, False]
+
+
+def test_track_numbers_are_ordinal_per_kind_and_intersect_language_filter():
+    source = Path("movie.mkv")
+    media = MediaInfo(
+        source, 60, 1920, 1080, "h264",
+        (MediaTrack(0, "video", "h264", "", "First", source), MediaTrack(3, "video", "h264", "", "Second", source)),
+        (AudioTrack(1, "aac", 2, "stereo", "spa", "Español"), AudioTrack(2, "aac", 2, "stereo", "eng", "English")),
+        (),
+    )
+    preset = Preset(
+        "Selección", track_numbers={"video": [2], "audio": [1, 2], "subtitle": list(range(1, 11))},
+        track_languages={"audio": {"enabled": True, "language_ids": ["spa"], "keep_unknown": False}},
+    )
+    languages = [TrackLanguage("spa", "Español", ["spa"]), TrackLanguage("eng", "English", ["eng"])]
+    configs = configs_for_preset(media, preset, languages)
+    assert [(config.track.kind, config.source_ordinal, config.included) for config in configs] == [
+        ("video", 1, False), ("video", 2, True), ("audio", 1, True), ("audio", 2, False),
+    ]
+
+
 def test_active_language_filter_requires_a_match_for_each_track_kind():
     source = Path("movie.mkv")
     media = MediaInfo(

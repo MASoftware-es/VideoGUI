@@ -148,9 +148,13 @@ Cuando el ajuste de imagen puede realizarse completamente con CUDA, tanto la dec
 
 Cada pista de audio puede copiarse directamente o convertirse a AAC, AC3, MP3, Opus o FLAC.
 
+La lista de formatos de audio incluye **Vorbis (OGG)**. La pista se codifica como Vorbis mediante `libvorbis` en modo de calidad variable VBR; OGG es el contenedor con el que suele distribuirse este códec como audio independiente. En VideoGUI, la pista Vorbis se guarda dentro del contenedor de vídeo elegido, preferiblemente MKV.
+
 La opción **Normalizar y reforzar diálogos** aplica compresión de rango dinámico y normalización de sonoridad. En audio multicanal también realiza una mezcla estéreo adaptada a la distribución de canales. Esta opción se desactiva al seleccionar **Copiar original**, porque una copia directa no puede aplicar filtros.
 
 ### 5. Elegir el formato de salida
+
+En **Directorio de salida**, marca **Mismo que origen** para guardar siempre el resultado junto al archivo abierto. Mientras esté marcado, la ruta se actualiza al abrir otro archivo y la edición del directorio y el botón **Examinar** permanecen desactivados. Desmárcalo para elegir otra carpeta.
 
 Selecciona **MKV**, **MP4** o **AVI** en **Formato de salida**. El nombre propuesto utiliza automáticamente la extensión correspondiente; también puedes escribir una extensión válida en el nombre para actualizar el selector. Si no se indica una extensión compatible, VideoGUI utiliza el formato seleccionado.
 
@@ -171,12 +175,15 @@ Cada preajuste guarda:
 - La codificación de vídeo: copia directa o códec, resolución, modo de ajuste, relación de aspecto, recorte o bordes y control de calidad o bitrate.
 - La conversión de audio y el uso de normalización y refuerzo de diálogos.
 - Si se mantienen los subtítulos.
+- Los números de pista que pueden procesarse, del 1 al 20 y por separado para vídeo, audio y subtítulos.
 - Un filtro de idiomas independiente para las pistas de vídeo, audio y subtítulos.
 - Si cada filtro debe conservar también las pistas cuyo idioma no se pueda reconocer.
 
 Los nombres no distinguen entre mayúsculas y minúsculas ni entre variantes con espacios adicionales, por lo que no se pueden crear dos preajustes equivalentes como `Cine` y ` cine `. **Duplicar** crea una copia completa a la que se asigna un nombre nuevo.
 
 En **Archivo individual**, el preajuste seleccionado se aplica a todas las pistas del vídeo abierto y también queda preparado para el siguiente archivo. Si se selecciona antes de abrir el vídeo, se aplica en cuanto termina el análisis. Las pistas externas que se añadan después reciben igualmente sus opciones correspondientes. Si se cambia manualmente una opción o la inclusión de una pista deja de coincidir con el perfil, el selector pasa a **Personalizado / Sin preajuste**.
+
+La numeración se calcula dentro de cada modalidad y conserva el orden original de detección: vídeo 1, vídeo 2, audio 1, audio 2, etc. Las pistas posteriores a la vigésima se excluyen. Los números seleccionados que no existan en un archivo se ignoran. El filtro de idiomas, cuando está activo, se aplica además de la selección numérica. En cada modalidad, **Incluir solo pista predeterminada** desmarca y bloquea la selección numérica; si el archivo no marca ninguna pista de ese tipo como predeterminada, se utiliza la primera.
 
 En **Procesamiento por lotes** es obligatorio disponer de al menos un preajuste. El selector superior determina el perfil de los archivos que se añadan posteriormente; cada fila puede elegir otro distinto. **Aplicar a todos** asigna el preajuste superior a todas las filas y las devuelve al estado pendiente. Los trabajos guardan el nombre del preajuste, no una copia de su contenido: al probar o procesar se utiliza siempre su versión actual. Si el preajuste ha sido borrado, la fila solicita seleccionar otro.
 
@@ -222,7 +229,7 @@ Con `XDG_CONFIG_HOME` definido, se utiliza `$XDG_CONFIG_HOME/VideoGUI/track_lang
 
 La pestaña **Procesamiento por lotes** convierte varios vídeos consecutivamente. Es necesario crear al menos un preajuste desde **Aplicación > Preajustes…** antes de utilizarla.
 
-El preajuste general se asigna a los archivos que se añadan posteriormente. Cada fila conserva su propia selección y permite cambiarla sin afectar a las demás. **Aplicar a todos** reemplaza el preajuste de todas las filas por el general y las devuelve a estado pendiente. Los archivos pueden seleccionarse en varias operaciones, eliminarse mediante selección múltiple y reordenarse con los botones de flecha.
+El preajuste general se asigna a los archivos que se añadan posteriormente. Cada fila conserva su propia selección y permite cambiarla sin afectar a las demás. **Aplicar a todos** reemplaza el preajuste de todas las filas por el general y las devuelve a estado pendiente. Los archivos pueden seleccionarse en varias operaciones, eliminarse mediante selección múltiple y reordenarse con los botones de flecha. También pueden ordenarse de forma ascendente o descendente pulsando las cabeceras **Archivo origen**, **Preajuste** y **Estado**.
 
 La salida puede guardarse junto a cada archivo original o en una carpeta común, en formato MKV, MP4 o AVI. Los nombres se forman añadiendo `_compressed`; si el destino ya existe o coincide con otra salida del trabajo, se añaden sufijos `_1`, `_2`, etc. sin sobrescribir archivos.
 

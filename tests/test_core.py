@@ -72,6 +72,15 @@ def test_copy_audio_ignores_normalization_and_uses_no_filter():
     assert "-filter:a:0" not in command
 
 
+def test_vorbis_audio_uses_libvorbis_encoder():
+    source = Path("movie.mkv")
+    audio = TrackConfig(MediaTrack(2, "audio", "aac", "spa", "Audio", source), audio_codec="vorbis", normalize=False)
+    command = build_project_command(source, Path("out.mkv"), [audio], EncodingOptions(hardware="cpu"))
+    assert command[command.index("-c:a:0") + 1] == "libvorbis"
+    assert command[command.index("-q:a:0") + 1] == "6"
+    assert "-b:a:0" not in command
+
+
 def test_container_validation_accounts_for_encoded_video():
     source = Path("movie.mkv")
     video = TrackConfig(MediaTrack(0, "video", "vp9", "", "", source))

@@ -102,7 +102,10 @@ def configs_for_preset(media: MediaInfo, preset: Preset, languages: list[TrackLa
         bitrate=track.bitrate, disposition_default=track.disposition_default,
     ) for track in media.audio_tracks)
     configs = [TrackConfig(track) for track in (*media.video_tracks, *audio_tracks, *media.subtitle_tracks)]
+    ordinals = {"video": 0, "audio": 0, "subtitle": 0}
     for config in configs:
+        ordinals[config.track.kind] += 1
+        config.source_ordinal = ordinals[config.track.kind]
         values = preset.video if config.track.kind == "video" else preset.audio if config.track.kind == "audio" else {}
         if config.track.kind == "video":
             config.copy_video = False
@@ -113,8 +116,12 @@ def configs_for_preset(media: MediaInfo, preset: Preset, languages: list[TrackLa
         if rule["enabled"]:
             recognized = recognize_language(config.track.language, config.track.title, languages)
             included = bool(rule["keep_unknown"]) if recognized is None else recognized.identifier in set(rule["language_ids"])
-        if config.track.kind == "video" and preset.only_default_video_track:
-            included = included and config.track.disposition_default
+        if preset.only_default(config.track.kind):
+            kind_tracks = [candidate for candidate in configs if candidate.track.kind == config.track.kind]
+            chosen = next((candidate for candidate in kind_tracks if candidate.track.disposition_default), kind_tracks[0] if kind_tracks else None)
+            included = included and config is chosen
+        else:
+            included = included and config.source_ordinal in preset.track_numbers[config.track.kind]
         config.included = included and (preset.keep_subtitles if config.track.kind == "subtitle" else True)
     return configs
 
@@ -145,7 +152,7 @@ def unique_output_path(source: Path, directory: Path, extension: str, reserved: 
 def required_encoders(configs: list[TrackConfig], use_hardware: bool) -> set[str]:
     required: set[str] = set()
     software_video = {"h264": "libx264", "hevc": "libx265", "av1": "libaom-av1", "vp9": "libvpx-vp9"}
-    audio = {"aac": "aac", "ac3": "ac3", "mp3": "libmp3lame", "opus": "libopus", "flac": "flac"}
+    audio = {"aac": "aac", "ac3": "ac3", "mp3": "libmp3lame", "opus": "libopus", "vorbis": "libvorbis", "flac": "flac"}
     hardware = "nvidia" if use_hardware else "cpu"
     for config in configs:
         if not config.included:

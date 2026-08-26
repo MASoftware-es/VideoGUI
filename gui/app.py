@@ -9,7 +9,7 @@ from PySide6.QtMultimedia import QAudioOutput, QMediaPlayer
 from PySide6.QtWidgets import (
     QAbstractItemView, QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFormLayout, QHBoxLayout,
     QHeaderView, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMessageBox, QInputDialog,
-    QDoubleSpinBox, QPlainTextEdit, QProgressBar, QPushButton, QScrollArea, QSpinBox,
+    QDoubleSpinBox, QGridLayout, QPlainTextEdit, QProgressBar, QPushButton, QScrollArea, QSpinBox,
     QSizePolicy, QSplitter, QStyle, QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget,
 )
 
@@ -187,7 +187,9 @@ class AudioSettingsWidget(QWidget):
     def __init__(self, translate) -> None:
         super().__init__(); self.t = translate; self.loading = False
         self.codec = QComboBox()
-        for codec in ("copy", "aac", "ac3", "mp3", "opus", "flac"): self.codec.addItem("" if codec == "copy" else codec.upper(), codec)
+        for codec in ("copy", "aac", "ac3", "mp3", "opus", "vorbis", "flac"):
+            label = "" if codec == "copy" else "Vorbis (OGG)" if codec == "vorbis" else codec.upper()
+            self.codec.addItem(label, codec)
         self.normalize = QCheckBox()
         self.form = QFormLayout(self); self.form.setContentsMargins(0, 0, 0, 0); self.codec_label, self.normalize_label = QLabel(), QLabel()
         self.form.addRow(self.codec_label, self.codec); self.form.addRow(self.normalize_label, self.normalize)
@@ -303,8 +305,10 @@ class TrackPanel(QWidget):
         if self.list.count(): self.list.setCurrentRow(0)
 
     def append_config(self, config: TrackConfig) -> None:
-        self.owner.apply_encoding_preferences(config)
-        item = QListWidgetItem(); item.setData(Qt.ItemDataRole.UserRole, config); self.list.addItem(item); self.refresh_item(item)
+        if config.source_ordinal <= 0:
+            config.source_ordinal = max((existing.source_ordinal for existing in self.configs()), default=0) + 1
+        item = QListWidgetItem(); item.setData(Qt.ItemDataRole.UserRole, config); self.list.addItem(item)
+        self.owner.apply_encoding_preferences(config); self.refresh_item(item)
 
     def configs(self) -> list[TrackConfig]:
         return [self.list.item(index).data(Qt.ItemDataRole.UserRole) for index in range(self.list.count())]
@@ -398,6 +402,8 @@ class TrackPanel(QWidget):
         except MediaError as exc:
             QMessageBox.critical(self, self.owner.t("error"), str(exc)); return
         for track in tracks: self.append_config(TrackConfig(track))
+        preset = self.owner.preset_by_name(self.owner.selected_preset_name)
+        if preset: self.owner._apply_preset(preset, False)
         self.list.setCurrentRow(self.list.count() - len(tracks)); self.changed.emit()
 
 
@@ -434,6 +440,49 @@ class LanguageFilterWidget(QWidget):
         return {"enabled": self.enabled_check.isChecked(), "language_ids": selected, "keep_unknown": self.keep_unknown.isChecked()}
 
 
+class TrackSelectionWidget(QWidget):
+    def __init__(self, owner: "MainWindow") -> None:
+        super().__init__(); self.owner = owner
+        self.only_default = QCheckBox(owner.t("only_default_track"))
+        self.label = QLabel(owner.t("select_tracks"))
+        self.checks = []
+        grid = QGridLayout(); grid.setContentsMargins(0, 0, 0, 0)
+        for position in range(1, 21):
+            check = QCheckBox(str(position)); check.setChecked(True); self.checks.append(check)
+            grid.addWidget(check, (position - 1) // 10, (position - 1) % 10)
+            check.toggled.connect(self._update_button)
+        self.toggle_all_button = QPushButton()
+        self.toggle_all_button.clicked.connect(self._toggle_all)
+        layout = QVBoxLayout(self); layout.setContentsMargins(0, 6, 0, 0)
+        layout.addWidget(self.only_default); layout.addWidget(self.label); layout.addLayout(grid); layout.addWidget(self.toggle_all_button)
+        self.only_default.toggled.connect(self._default_toggled); self._update_button()
+
+    def set_value(self, selected: list[int], only_default: bool) -> None:
+        self.only_default.blockSignals(True); self.only_default.setChecked(False); self.only_default.blockSignals(False)
+        values = set(selected)
+        for position, check in enumerate(self.checks, 1): check.setChecked(position in values)
+        self.only_default.setChecked(only_default)
+        self._update_button()
+
+    def value(self) -> list[int]:
+        return [position for position, check in enumerate(self.checks, 1) if check.isChecked()]
+
+    def _default_toggled(self, enabled: bool) -> None:
+        if enabled:
+            for check in self.checks: check.setChecked(False)
+        for check in self.checks: check.setEnabled(not enabled)
+        self.toggle_all_button.setEnabled(not enabled); self._update_button()
+
+    def _toggle_all(self) -> None:
+        target = not all(check.isChecked() for check in self.checks)
+        for check in self.checks: check.setChecked(target)
+        self._update_button()
+
+    def _update_button(self, *_args) -> None:
+        key = "clear_all_tracks" if all(check.isChecked() for check in self.checks) else "select_all_tracks"
+        self.toggle_all_button.setText(self.owner.t(key))
+
+
 class PresetEditorDialog(QDialog):
     def __init__(self, owner: "MainWindow", preset: Preset | None, existing_names: set[str]) -> None:
         super().__init__(owner)
@@ -446,6 +495,7 @@ class PresetEditorDialog(QDialog):
         top = QFormLayout(); top.addRow(owner.t("preset_name"), self.name_edit)
         self.tabs = QTabWidget()
         self.language_filters: dict[str, LanguageFilterWidget] = {}
+        self.track_selection_widgets: dict[str, TrackSelectionWidget] = {}
         self.video_tab, self.audio_tab, self.subtitle_tab = QWidget(), QWidget(), QWidget()
         self.video_scroll = QScrollArea(); self.video_scroll.setWidgetResizable(True); self.video_scroll.setWidget(self.video_tab)
         self.tabs.addTab(self.video_scroll, owner.t("video_tracks"))
@@ -462,23 +512,33 @@ class PresetEditorDialog(QDialog):
 
     def _build_video_tab(self) -> None:
         self.copy_video = QCheckBox(self.owner.t("copy_video"))
-        self.only_default_video_track = QCheckBox(self.owner.t("only_default_video_track"))
         self.video_settings = VideoSettingsWidget(self.owner.t)
         self.copy_video.toggled.connect(lambda checked: self.video_settings.set_context(True, checked))
-        layout = QVBoxLayout(self.video_tab); layout.addWidget(self.copy_video); layout.addWidget(self.only_default_video_track); layout.addWidget(self.video_settings)
+        layout = QVBoxLayout(self.video_tab); layout.addWidget(self.copy_video)
+        self._add_track_selection("video", layout)
         self._add_language_filter("video", layout)
+        layout.addWidget(self.video_settings)
 
     def _build_audio_tab(self) -> None:
         self.audio_settings = AudioSettingsWidget(self.owner.t)
-        layout = QVBoxLayout(self.audio_tab); layout.addWidget(self.audio_settings)
+        layout = QVBoxLayout(self.audio_tab)
+        self._add_track_selection("audio", layout)
         self._add_language_filter("audio", layout)
+        layout.addWidget(self.audio_settings)
 
     def _build_subtitle_tab(self) -> None:
         self.keep_subtitles = QCheckBox()
         form = QFormLayout(self.subtitle_tab); form.addRow(self.owner.t("keep_subtitles"), self.keep_subtitles)
+        self._add_track_selection("subtitle", form)
         self._add_language_filter("subtitle", form)
         self.keep_subtitles.toggled.connect(self.language_filters["subtitle"].setEnabled)
+        self.keep_subtitles.toggled.connect(self.track_selection_widgets["subtitle"].setVisible)
         self.language_filters["subtitle"].setEnabled(self.keep_subtitles.isChecked())
+
+    def _add_track_selection(self, kind: str, layout) -> None:
+        selector = TrackSelectionWidget(self.owner); self.track_selection_widgets[kind] = selector
+        if isinstance(layout, QFormLayout): layout.addRow(selector)
+        else: layout.addWidget(selector)
 
     def _add_language_filter(self, kind: str, layout) -> None:
         language_filter = LanguageFilterWidget(self.owner, kind)
@@ -489,25 +549,31 @@ class PresetEditorDialog(QDialog):
     def _load_values(self, preset: Preset) -> None:
         video, audio = preset.video, preset.audio
         self.copy_video.setChecked(bool(video.get("copy_video", False))); self.video_settings.load_values(video)
-        self.only_default_video_track.setChecked(preset.only_default_video_track)
         self.video_settings.set_context(True, self.copy_video.isChecked())
         self.audio_settings.load_values(audio)
         self.keep_subtitles.setChecked(preset.keep_subtitles)
+        self.track_selection_widgets["subtitle"].setVisible(preset.keep_subtitles)
+        for kind, selector in self.track_selection_widgets.items(): selector.set_value(preset.track_numbers[kind], preset.only_default(kind))
         for kind, language_filter in self.language_filters.items():
             language_filter.set_value(preset.track_languages[kind])
 
     def result_preset(self) -> Preset:
         video = self.video_settings.values(); video["copy_video"] = self.copy_video.isChecked()
         filters = {kind: language_filter.value() for kind, language_filter in self.language_filters.items()}
+        track_numbers = {kind: selector.value() for kind, selector in self.track_selection_widgets.items()}
+        only_defaults = {kind: selector.only_default.isChecked() for kind, selector in self.track_selection_widgets.items()}
         return Preset(
             self.name_edit.text().strip(), video, self.audio_settings.values(),
-            self.keep_subtitles.isChecked(), filters, self.only_default_video_track.isChecked(),
+            self.keep_subtitles.isChecked(), filters, only_defaults["video"], track_numbers, only_defaults,
         )
 
     def accept(self) -> None:
         name = self.name_edit.text().strip(); key = normalized_name(name)
         if not key:
             QMessageBox.warning(self, self.owner.t("error"), self.owner.t("preset_name_required")); return
+        required = ["video", "audio"] + (["subtitle"] if self.keep_subtitles.isChecked() else [])
+        if any(not selector.only_default.isChecked() and not selector.value() for kind in required for selector in [self.track_selection_widgets[kind]]):
+            QMessageBox.warning(self, self.owner.t("error"), self.owner.t("preset_track_number_required")); return
         if key in self.existing_names:
             QMessageBox.warning(self, self.owner.t("error"), self.owner.t("preset_name_exists")); return
         self.name_edit.setText(name); super().accept()
@@ -729,6 +795,7 @@ class BatchWidget(QWidget):
         self.queue_total = 0; self.queue_finished = 0
         self.cancel_requested = False; self.error_dialogs: list[QDialog] = []
         self.row_controls: dict[QWidget, BatchItem] = {}
+        self.sort_column = -1; self.sort_order = Qt.SortOrder.AscendingOrder
 
         self.default_preset = QComboBox()
         self.apply_preset_to_all_button = QPushButton(); set_button_role(self.apply_preset_to_all_button, success=True)
@@ -752,6 +819,7 @@ class BatchWidget(QWidget):
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         header = self.table.horizontalHeader(); header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents); header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed); header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionsClickable(True); header.setSortIndicatorShown(False); header.sectionClicked.connect(self.sort_by_column)
         self.table.itemSelectionChanged.connect(self._update_selection_buttons)
 
         self.select_files_button, self.load_button, self.save_button = QPushButton(), QPushButton(), QPushButton()
@@ -884,6 +952,30 @@ class BatchWidget(QWidget):
     def selected_rows(self) -> list[int]:
         return sorted({index.row() for index in self.table.selectionModel().selectedRows()})
 
+    def sort_by_column(self, column: int) -> None:
+        if column not in (0, 1, 2) or self.busy or self.testing: return
+        selected_items = {id(self.items[row]) for row in self.selected_rows() if row < len(self.items)}
+        if self.sort_column == column:
+            self.sort_order = Qt.SortOrder.DescendingOrder if self.sort_order == Qt.SortOrder.AscendingOrder else Qt.SortOrder.AscendingOrder
+        else:
+            self.sort_column = column; self.sort_order = Qt.SortOrder.AscendingOrder
+
+        def key(item: BatchItem):
+            if column == 0:
+                source = Path(item.source)
+                return source.name.casefold(), str(source).casefold()
+            if column == 1:
+                return item.preset_name.casefold(), Path(item.source).name.casefold()
+            return self.owner.t(self.STATUS_KEYS[item.status]).casefold(), Path(item.source).name.casefold()
+
+        self.table.clearSelection()
+        self.items.sort(key=key, reverse=self.sort_order == Qt.SortOrder.DescendingOrder)
+        header = self.table.horizontalHeader(); header.setSortIndicatorShown(True); header.setSortIndicator(column, self.sort_order)
+        self.refresh_table()
+        for row, item in enumerate(self.items):
+            if id(item) in selected_items:
+                self.table.selectionModel().select(self.table.model().index(row, 0), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
+
     def _update_selection_buttons(self) -> None:
         rows = self.selected_rows(); enabled = bool(rows) and not self.busy
         self.remove_button.setEnabled(enabled); self.retry_button.setEnabled(enabled)
@@ -965,6 +1057,7 @@ class BatchWidget(QWidget):
             if 0 <= target < len(self.items) and target not in selected:
                 self.items[row], self.items[target] = self.items[target], self.items[row]
                 selected.remove(row); selected.add(target)
+        self.sort_column = -1; self.table.horizontalHeader().setSortIndicatorShown(False)
         self.refresh_table(); self.table.clearSelection()
         for row in sorted(selected):
             self.table.selectionModel().select(self.table.model().index(row, 0), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
@@ -1249,7 +1342,8 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(str(ICON_PATH)))
         self.media, self.process, self.output_path, self.progress_buffer = None, None, None, ""
         self.source_edit = QLineEdit(); self.source_edit.setReadOnly(True); self.open_button = QPushButton()
-        self.output_dir_edit = QLineEdit(str(self.settings.value("output_directory", ""))); self.output_dir_button = QPushButton(); self.output_name_edit = QLineEdit()
+        self.output_dir_edit = QLineEdit(str(self.settings.value("output_directory", ""))); self.same_output_as_source = QCheckBox(); self.output_dir_button = QPushButton(); self.output_name_edit = QLineEdit()
+        self.same_output_as_source.setChecked(self.settings.value("same_output_as_source", False, type=bool))
         self.output_format_combo = QComboBox()
         for extension in (".mkv", ".mp4", ".avi"): self.output_format_combo.addItem("", extension)
         saved_format = str(self.settings.value("output_format", ".mkv")); self.output_format_combo.setCurrentIndex(max(0, self.output_format_combo.findData(saved_format)))
@@ -1265,7 +1359,7 @@ class MainWindow(QMainWindow):
         form = QFormLayout(); self.preset_combo = QComboBox(); self.refresh_preset_combo(self.selected_preset_name)
         self.preset_combo.currentIndexChanged.connect(self.preset_selected)
         source_row = QHBoxLayout(); source_row.addWidget(self.source_edit); source_row.addWidget(self.open_button)
-        output_row = QHBoxLayout(); output_row.addWidget(self.output_dir_edit); output_row.addWidget(self.output_dir_button)
+        output_row = QHBoxLayout(); output_row.addWidget(self.output_dir_edit); output_row.addWidget(self.same_output_as_source); output_row.addWidget(self.output_dir_button)
         self.preset_label, self.source_label, self.output_dir_label, self.output_format_label, self.output_name_label = QLabel(), QLabel(), QLabel(), QLabel(), QLabel()
         self.engine_label = QLabel()
         form.addRow(self.preset_label, self.preset_combo); form.addRow(self.source_label, source_row); form.addRow(self.output_dir_label, output_row); form.addRow(self.output_format_label, self.output_format_combo); form.addRow(self.output_name_label, self.output_name_edit); form.addRow(self.engine_label, self.hardware_check)
@@ -1278,6 +1372,7 @@ class MainWindow(QMainWindow):
         self.mode_tabs.currentChanged.connect(self.mode_changed)
         central = QWidget(); central_layout = QVBoxLayout(central); central_layout.addWidget(self.mode_tabs); self.setCentralWidget(central)
         self.open_button.clicked.connect(self.open_file); self.output_dir_button.clicked.connect(self.choose_output_directory); self.output_dir_edit.editingFinished.connect(self.remember_output_directory)
+        self.same_output_as_source.toggled.connect(self.same_output_directory_toggled)
         self.output_format_combo.currentIndexChanged.connect(self.output_format_changed); self.output_name_edit.editingFinished.connect(self.output_name_finished)
         self.defaults_button.clicked.connect(self.restore_defaults); self.convert_button.clicked.connect(self.toggle_conversion)
         self.build_menus()
@@ -1289,12 +1384,13 @@ class MainWindow(QMainWindow):
         self.hardware_check.setChecked(bool(saved_hardware) if isinstance(saved_hardware, bool) else str(saved_hardware).lower() == "true")
         self.batch_widget.set_hardware(self.hardware_check.isChecked())
         self.hardware_check.toggled.connect(self.save_hardware_preference)
+        self.same_output_directory_toggled(self.same_output_as_source.isChecked(), persist=False)
         self.restore_window_settings()
 
     def t(self, key: str) -> str: return text(self.languages, self.language, key)
 
     def retranslate(self) -> None:
-        self.setWindowTitle(self.t("title")); self.open_button.setText(self.t("open")); self.output_dir_button.setText(self.t("browse")); self.defaults_button.setText(self.t("defaults")); self.convert_button.setText(self.t("stop") if self.process else self.t("convert")); self.hardware_check.setText(self.t("use_hardware"))
+        self.setWindowTitle(self.t("title")); self.open_button.setText(self.t("open")); self.output_dir_button.setText(self.t("browse")); self.same_output_as_source.setText(self.t("same_as_source")); self.defaults_button.setText(self.t("defaults")); self.convert_button.setText(self.t("stop") if self.process else self.t("convert")); self.hardware_check.setText(self.t("use_hardware"))
         for label, key in ((self.preset_label, "preset"), (self.source_label, "source"), (self.output_dir_label, "output_dir"), (self.output_format_label, "output_format"), (self.output_name_label, "output_name"), (self.engine_label, "engine")): label.setText(self.t(key))
         self.mode_tabs.setTabText(0, self.t("single")); self.mode_tabs.setTabText(1, self.t("batch")); self.batch_widget.retranslate()
         for value, key in ((".mkv", "format_mkv"), (".mp4", "format_mp4"), (".avi", "format_avi")):
@@ -1411,24 +1507,37 @@ class MainWindow(QMainWindow):
         if recognized is None: return bool(rule["keep_unknown"]), False
         return recognized.identifier in set(rule["language_ids"]), True
 
+    def _selected_by_track_number(self, config: TrackConfig, preset: Preset) -> bool:
+        if preset.only_default(config.track.kind):
+            panel = {"video": self.video_panel, "audio": self.audio_panel, "subtitle": self.subtitle_panel}[config.track.kind]
+            tracks = panel.configs()
+            chosen = next((candidate for candidate in tracks if candidate.track.disposition_default), None)
+            if chosen is None and tracks:
+                chosen = min(tracks, key=lambda candidate: candidate.source_ordinal)
+            return config is chosen
+        return config.source_ordinal in preset.track_numbers[config.track.kind]
+
+    def _included_by_preset(self, config: TrackConfig, preset: Preset) -> tuple[bool, bool]:
+        if not self._selected_by_track_number(config, preset): return False, True
+        included, recognized = self._included_by_language_filter(config, preset)
+        if config.track.kind == "subtitle": included = preset.keep_subtitles and included
+        return included, recognized
+
     def _apply_preset(self, preset: Preset, warn_unknown: bool) -> None:
         unknown: list[TrackConfig] = []
         for config in self.video_panel.configs():
             config.copy_video = False
             for field, value in preset.video.items(): setattr(config, field, value)
-            config.included, recognized = self._included_by_language_filter(config, preset)
-            if preset.only_default_video_track:
-                config.included = config.included and config.track.disposition_default
+            config.included, recognized = self._included_by_preset(config, preset)
             if not recognized: unknown.append(config)
             self.save_encoding_preferences(config)
         for config in self.audio_panel.configs():
             for field, value in preset.audio.items(): setattr(config, field, value)
-            config.included, recognized = self._included_by_language_filter(config, preset)
+            config.included, recognized = self._included_by_preset(config, preset)
             if not recognized: unknown.append(config)
             self.save_encoding_preferences(config)
         for config in self.subtitle_panel.configs():
-            included, recognized = self._included_by_language_filter(config, preset)
-            config.included = preset.keep_subtitles and included
+            config.included, recognized = self._included_by_preset(config, preset)
             if preset.keep_subtitles and not recognized: unknown.append(config)
         for panel in (self.video_panel, self.audio_panel, self.subtitle_panel):
             for index in range(panel.list.count()): panel.refresh_item(panel.list.item(index))
@@ -1445,14 +1554,11 @@ class MainWindow(QMainWindow):
         if not preset: return
         matches_video = all(
             all(getattr(config, field) == value for field, value in preset.video.items())
-            and config.included == (
-                self._included_by_language_filter(config, preset)[0]
-                and (not preset.only_default_video_track or config.track.disposition_default)
-            )
+            and config.included == self._included_by_preset(config, preset)[0]
             for config in self.video_panel.configs()
         )
-        matches_audio = all(all(getattr(config, field) == value for field, value in preset.audio.items()) and config.included == self._included_by_language_filter(config, preset)[0] for config in self.audio_panel.configs())
-        matches_subtitles = all(config.included == (preset.keep_subtitles and self._included_by_language_filter(config, preset)[0]) for config in self.subtitle_panel.configs())
+        matches_audio = all(all(getattr(config, field) == value for field, value in preset.audio.items()) and config.included == self._included_by_preset(config, preset)[0] for config in self.audio_panel.configs())
+        matches_subtitles = all(config.included == self._included_by_preset(config, preset)[0] for config in self.subtitle_panel.configs())
         if not (matches_video and matches_audio and matches_subtitles):
             self.selected_preset_name = ""; self.settings.setValue("selected_preset", ""); self.refresh_preset_combo()
 
@@ -1505,10 +1611,7 @@ class MainWindow(QMainWindow):
         elif preset and config.track.kind == "subtitle":
             config.included = preset.keep_subtitles
         if preset:
-            included, _ = self._included_by_language_filter(config, preset)
-            if config.track.kind == "video" and preset.only_default_video_track:
-                included = included and config.track.disposition_default
-            config.included = (preset.keep_subtitles and included) if config.track.kind == "subtitle" else included
+            config.included, _ = self._included_by_preset(config, preset)
 
     def save_encoding_preferences(self, config: TrackConfig) -> None:
         fields = VIDEO_PREFERENCE_DEFAULTS if config.track.kind == "video" else AUDIO_PREFERENCE_DEFAULTS if config.track.kind == "audio" else {}
@@ -1554,7 +1657,7 @@ class MainWindow(QMainWindow):
         try: self.media = probe_media(Path(filename), self.t)
         except MediaError as exc: QMessageBox.critical(self, self.t("error"), str(exc)); self.status.setText(self.t("ready")); return
         self.source_edit.setText(str(self.media.path))
-        if not self.output_dir_edit.text().strip(): self.output_dir_edit.setText(str(self.media.path.parent))
+        if self.same_output_as_source.isChecked() or not self.output_dir_edit.text().strip(): self.output_dir_edit.setText(str(self.media.path.parent))
         extension = str(self.output_format_combo.currentData() or ".mkv")
         self.output_name_edit.setText(f"{self.media.path.stem}_compressed{extension}"); self.video_panel.set_tracks(self.media.video_tracks)
         audio_tracks = tuple(MediaTrack(
@@ -1571,8 +1674,14 @@ class MainWindow(QMainWindow):
         directory = QFileDialog.getExistingDirectory(self, self.t("output_dir"), self.output_dir_edit.text())
         if directory: self.output_dir_edit.setText(directory); self.remember_output_directory()
 
+    def same_output_directory_toggled(self, checked: bool, persist: bool = True) -> None:
+        if persist: self.settings.setValue("same_output_as_source", checked)
+        if checked and self.media: self.output_dir_edit.setText(str(self.media.path.parent))
+        enabled = not checked and self.process is None
+        self.output_dir_edit.setEnabled(enabled); self.output_dir_button.setEnabled(enabled)
+
     def remember_output_directory(self) -> None:
-        if self.output_dir_edit.text().strip(): self.settings.setValue("output_directory", self.output_dir_edit.text().strip())
+        if not self.same_output_as_source.isChecked() and self.output_dir_edit.text().strip(): self.settings.setValue("output_directory", self.output_dir_edit.text().strip())
 
     def output_format_changed(self) -> None:
         extension = str(self.output_format_combo.currentData() or ".mkv")
@@ -1608,7 +1717,8 @@ class MainWindow(QMainWindow):
         for panel in (self.video_panel, self.audio_panel, self.subtitle_panel): panel.save_editor()
         configs = self.all_configs()
         if not any(c.included for c in self.video_panel.configs()): QMessageBox.warning(self, self.t("error"), self.t("no_video")); return
-        output = Path(self.output_dir_edit.text()).expanduser() / self.output_name_edit.text().strip()
+        output_directory = self.media.path.parent if self.same_output_as_source.isChecked() else Path(self.output_dir_edit.text()).expanduser()
+        output = output_directory / self.output_name_edit.text().strip()
         if output.suffix.lower() not in {".mkv", ".mp4", ".avi"}:
             output = output.with_suffix(str(self.output_format_combo.currentData() or ".mkv")); self.output_name_edit.setText(output.name)
         warnings = container_warnings(configs, output.suffix, self.t)
@@ -1665,9 +1775,10 @@ class MainWindow(QMainWindow):
             self.start_conversion()
 
     def set_busy(self, busy: bool) -> None:
-        for widget in (self.open_button, self.output_dir_button, self.output_dir_edit, self.output_name_edit,
+        for widget in (self.open_button, self.output_dir_button, self.output_dir_edit, self.same_output_as_source, self.output_name_edit,
                        self.output_format_combo, self.hardware_check, self.defaults_button, self.preset_combo, self.track_tabs):
             widget.setEnabled(not busy)
+        if not busy: self.same_output_directory_toggled(self.same_output_as_source.isChecked(), persist=False)
         self.mode_tabs.setTabEnabled(1, not busy)
         self.application_menu.setEnabled(not busy)
         self.convert_button.setEnabled(busy or self.media is not None)

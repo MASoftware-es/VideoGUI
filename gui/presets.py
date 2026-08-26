@@ -15,6 +15,8 @@ VIDEO_DEFAULTS: dict[str, Any] = {
 }
 AUDIO_DEFAULTS: dict[str, Any] = {"audio_codec": "mp3", "normalize": True}
 LANGUAGE_FILTER_DEFAULT: dict[str, Any] = {"enabled": False, "language_ids": [], "keep_unknown": True}
+TRACK_NUMBER_DEFAULT = list(range(1, 21))
+LEGACY_TRACK_NUMBER_DEFAULT = list(range(1, 11))
 
 
 @dataclass
@@ -25,6 +27,8 @@ class Preset:
     keep_subtitles: bool = True
     track_languages: dict[str, dict[str, Any]] = field(default_factory=dict)
     only_default_video_track: bool = False
+    track_numbers: dict[str, list[int]] = field(default_factory=dict)
+    only_default_tracks: dict[str, bool] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         video = dict(VIDEO_DEFAULTS); video.update(self.video); self.video = video
@@ -35,16 +39,34 @@ class Preset:
             values["language_ids"] = list(dict.fromkeys(str(value) for value in values["language_ids"]))
             filters[kind] = values
         self.track_languages = filters
+        numbers = {}
+        for kind in ("video", "audio", "subtitle"):
+            selected = self.track_numbers.get(kind, TRACK_NUMBER_DEFAULT)
+            numbers[kind] = sorted({int(value) for value in selected if 1 <= int(value) <= 20})
+        self.track_numbers = numbers
+        defaults = {kind: bool(self.only_default_tracks.get(kind, False)) for kind in ("video", "audio", "subtitle")}
+        defaults["video"] = defaults["video"] or self.only_default_video_track
+        self.only_default_tracks = defaults
+        self.only_default_video_track = defaults["video"]
+        for kind, enabled in defaults.items():
+            if enabled: self.track_numbers[kind] = []
+
+    def only_default(self, kind: str) -> bool:
+        return self.only_default_tracks[kind]
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Preset":
         name = str(data["name"]).strip()
         if not name:
             raise ValueError("Preset name cannot be empty")
+        track_numbers = data.get("track_numbers")
+        if not isinstance(track_numbers, dict):
+            track_numbers = {kind: LEGACY_TRACK_NUMBER_DEFAULT for kind in ("video", "audio", "subtitle")}
         return cls(
             name, dict(data.get("video", {})), dict(data.get("audio", {})),
             bool(data.get("keep_subtitles", True)), dict(data.get("track_languages", {})),
             bool(data.get("only_default_video_track", False)),
+            dict(track_numbers), dict(data.get("only_default_tracks", {})),
         )
 
     def to_dict(self) -> dict[str, Any]:

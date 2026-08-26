@@ -148,9 +148,13 @@ When the picture adjustment can run entirely through CUDA, decoding and scaling 
 
 Each audio track can be copied directly or converted to AAC, AC3, MP3, Opus, or FLAC.
 
+The audio-format list includes **Vorbis (OGG)**. The track is encoded as Vorbis through `libvorbis` in variable-quality VBR mode; OGG is the container commonly used to distribute this codec as standalone audio. In VideoGUI, the Vorbis track is stored inside the selected video container, preferably MKV.
+
 **Normalize and enhance dialogue** applies dynamic-range compression and loudness normalization. For multichannel audio, it also performs a stereo downmix adapted to the channel layout. This option is disabled when **Copy original** is selected because direct copying cannot apply filters.
 
 ### 5. Choose the output format
+
+Under **Output directory**, select **Same as source** to always save the result beside the open file. While selected, the path is updated whenever another file is opened, and both directory editing and the **Browse** button remain disabled. Clear it to choose a different folder.
 
 Select **MKV**, **MP4**, or **AVI** under **Output format**. The proposed name automatically uses the appropriate extension. You can also type a valid extension in the name to update the selector. If the name has no supported extension, VideoGUI uses the selected format.
 
@@ -171,12 +175,15 @@ Each preset stores:
 - Video encoding: direct copy or codec, resolution, adjustment mode, aspect ratio, cropping or borders, and quality or bitrate control.
 - Audio conversion and whether dialogue normalization and enhancement are enabled.
 - Whether subtitles are kept.
+- The track numbers eligible for processing, from 1 to 20 and configured independently for video, audio, and subtitles.
 - An independent language filter for video, audio, and subtitle tracks.
 - Whether each filter also keeps tracks whose language cannot be recognized.
 
 Names are compared without regard to case or surrounding whitespace, so equivalent presets such as `Cinema` and ` cinema ` cannot both be created. **Duplicate** creates a complete copy and asks for a new name.
 
 In **Single file**, the selected preset is applied to every track in the open video and remains selected for the next file. If selected before opening a video, it is applied after inspection finishes. External tracks added later also receive the corresponding settings. If an option is changed manually or the included tracks no longer match the profile, the selector changes to **Custom / No preset**.
+
+Track numbering is calculated independently for each media type and retains the original inspection order: video 1, video 2, audio 1, audio 2, and so on. Tracks after number twenty are excluded, and selected numbers that do not exist in a file are ignored. When enabled, the language filter is applied in addition to number selection. For every media type, **Include only the default track** clears and disables number selection; if no track of that type is marked as default, its first track is used.
 
 At least one preset is required for **Batch processing**. The top selector determines the profile assigned to files added later, while each row can use a different one. **Apply to all** assigns the top preset to every row and returns them to Pending status. Saved jobs store the preset name rather than a copy of its contents: testing and processing always use its current version. If the preset has been deleted, the row asks you to select another one.
 
@@ -222,7 +229,7 @@ If `XDG_CONFIG_HOME` is defined, VideoGUI uses `$XDG_CONFIG_HOME/VideoGUI/track_
 
 The **Batch processing** tab converts several videos sequentially. You must create at least one preset under **Application > Presets…** before using it.
 
-The general preset is assigned to files added later. Each row retains its own selection and can be changed without affecting the others. **Apply to all** replaces every row's preset with the general preset and returns each row to Pending status. Files can be selected in several operations, removed using multiple selection, and reordered with the arrow buttons.
+The general preset is assigned to files added later. Each row retains its own selection and can be changed without affecting the others. **Apply to all** replaces every row's preset with the general preset and returns each row to Pending status. Files can be selected in several operations, removed using multiple selection, and reordered with the arrow buttons. They can also be sorted ascending or descending by clicking the **Source file**, **Preset**, and **Status** headers.
 
 Output can be saved beside each original file or in a common folder, in MKV, MP4, or AVI format. Names are formed by appending `_compressed`; if the destination already exists or conflicts with another output in the job, `_1`, `_2`, and subsequent suffixes are added without overwriting files.
 

@@ -46,3 +46,26 @@ def test_only_default_video_track_is_saved_and_old_presets_default_to_disabled(t
 
     path.write_text('{"presets": [{"name": "Antiguo"}]}', encoding="utf-8")
     assert load_presets(path)[0].only_default_video_track is False
+
+
+def test_track_numbers_are_saved_and_old_presets_select_first_ten(tmp_path):
+    path = tmp_path / "presets.json"
+    save_presets(path, [Preset("Pistas", track_numbers={"video": [1, 3], "audio": [2], "subtitle": [4, 5]})])
+    loaded = load_presets(path)[0]
+    assert loaded.track_numbers == {"video": [1, 3], "audio": [2], "subtitle": [4, 5]}
+
+    path.write_text('{"presets": [{"name": "Antiguo"}]}', encoding="utf-8")
+    assert load_presets(path)[0].track_numbers == {kind: list(range(1, 11)) for kind in ("video", "audio", "subtitle")}
+
+
+def test_new_presets_select_twenty_tracks_and_default_selection_is_per_kind(tmp_path):
+    preset = Preset("Nuevo", only_default_tracks={"audio": True, "subtitle": True})
+    assert preset.track_numbers == {"video": list(range(1, 21)), "audio": [], "subtitle": []}
+    assert preset.only_default("video") is False
+    assert preset.only_default("audio") is True
+    assert preset.only_default("subtitle") is True
+
+    path = tmp_path / "presets.json"
+    save_presets(path, [preset])
+    loaded = load_presets(path)[0]
+    assert loaded.only_default_tracks == {"video": False, "audio": True, "subtitle": True}

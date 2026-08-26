@@ -160,14 +160,16 @@ def build_project_command(
     for index, config in enumerate(video_configs):
         command += video_options(config, index, options.hardware, config.track.source in cuda_video_sources)
 
-    codec_names = {"copy": "copy", "aac": "aac", "ac3": "ac3", "mp3": "libmp3lame", "opus": "libopus", "flac": "flac"}
+    codec_names = {"copy": "copy", "aac": "aac", "ac3": "ac3", "mp3": "libmp3lame", "opus": "libopus", "vorbis": "libvorbis", "flac": "flac"}
     for index, config in enumerate(audio_configs):
         selected_codec = config.audio_codec
         codec = codec_names.get(selected_codec, selected_codec)
         command += [f"-c:a:{index}", codec]
         if config.normalize and selected_codec != "copy":
             command += [f"-filter:a:{index}", audio_filter(config.as_audio_track())]
-        if codec != "copy":
+        if selected_codec == "vorbis":
+            command += [f"-q:a:{index}", "6"]
+        elif codec != "copy":
             command += [f"-b:a:{index}", options.audio_bitrate]
         command += [f"-metadata:s:a:{index}", f"language={config.language}"]
         command += [f"-metadata:s:a:{index}", f"title={config.title}"]

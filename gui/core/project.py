@@ -8,6 +8,7 @@ from gui.core.media import AudioTrack, MediaTrack
 @dataclass
 class TrackConfig:
     track: MediaTrack
+    source_ordinal: int = 0
     included: bool = True
     title: str = ""
     language: str = ""
