@@ -1,6 +1,17 @@
+import tomllib
+from pathlib import Path
+
+from gui.config import APP_MODIFICATION_DATE, APP_VERSION
 from gui.i18n import discover_languages, text
 from gui.themes import discover_themes
 from gui.app import DIALOG_SOUND_PATH
+
+
+def test_application_version_matches_package_metadata():
+    project_file = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    project = tomllib.loads(project_file.read_text(encoding="utf-8"))
+    assert APP_VERSION == project["project"]["version"]
+    assert APP_MODIFICATION_DATE
 
 
 def test_discovers_bundled_languages():

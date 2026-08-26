@@ -165,6 +165,8 @@
     "custom": "Benutzerdefiniert…",
     "copy_original": "Original kopieren",
     "about": "Über…",
+    "version": "Version",
+    "modification_date": "Änderungsdatum",
     "developed_by": "Entwickelt von:",
     "filter_track_languages": "Nur folgende Sprachen behalten",
     "keep_unknown_languages": "Spuren mit unbekannter Sprache behalten",

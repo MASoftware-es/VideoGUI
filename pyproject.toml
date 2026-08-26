@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "videogui"
-version = "0.1.0"
+version = "1.4"
 description = "Interfaz Qt para inspeccionar y convertir archivos de vídeo"
 readme = "leeme.md"
 requires-python = ">=3.10"

@@ -165,6 +165,8 @@
     "custom": "Personalizzata…",
     "copy_original": "Copia originale",
     "about": "Informazioni…",
+    "version": "Versione",
+    "modification_date": "Data di modifica",
     "developed_by": "Sviluppato da:",
     "filter_track_languages": "Mantieni solo le lingue seguenti",
     "keep_unknown_languages": "Mantieni le tracce con lingua sconosciuta",

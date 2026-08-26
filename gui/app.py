@@ -18,7 +18,7 @@ from gui.core.batch import (
     BatchItem, BatchSettings, find_preset, load_batch_job,
     save_batch_job, validate_batch_item, validate_batch_media,
 )
-from gui.config import PROBE_TIMEOUT_SECONDS
+from gui.config import APP_MODIFICATION_DATE, APP_VERSION, PROBE_TIMEOUT_SECONDS
 from gui.core.ffmpeg import EncodingOptions, aligned_dimension, build_project_command, required_dimension_alignment
 from gui.core.media import MediaError, MediaTrack, SUPPORTED_EXTENSIONS, media_from_probe_output, probe_external_tracks, probe_media
 from gui.core.project import TrackConfig, container_warnings
@@ -1448,6 +1448,8 @@ class MainWindow(QMainWindow):
             96, 96, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation,
         ))
         information = QLabel(
+            f"<p><b>{self.t('version')}:</b> {APP_VERSION}<br>"
+            f"<b>{self.t('modification_date')}:</b> {APP_MODIFICATION_DATE}</p>"
             f"<p><b>{self.t('developed_by')}</b> M.A Software</p>"
             f"<p><b>{self.t('web')}:</b> <a href='https://masoftware.es'>https://masoftware.es</a></p>"
             f"<p><b>{self.t('email')}:</b> <a href='mailto:info@masoftware.es'>info@masoftware.es</a></p>"

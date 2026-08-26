@@ -175,6 +175,8 @@
     "custom": "Custom…",
     "copy_original": "Copy original",
     "about": "About…",
+    "version": "Version",
+    "modification_date": "Modification date",
     "developed_by": "Developed by:",
     "filter_track_languages": "Keep only the following languages",
     "keep_unknown_languages": "Keep tracks with an unknown language",
